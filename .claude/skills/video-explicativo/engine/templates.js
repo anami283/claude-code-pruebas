@@ -502,7 +502,7 @@ TEMPLATES.persona = ctx => {
     if (p <= 0) return;
     const y = 470 + i * 150, x = 500;
     const red = it.red;
-    g += A(p, `<rect x="${x}" y="${y}" width="470" height="118" rx="8" fill="${T.paper}" stroke="${red ? RED : T.line}" stroke-width="2.5"/>${icon(it.icon || 'chat', x + 24, y + 31, 56, red ? RED : T.ink, 1.5)}${sansBlock(x + 104, y + (it.text ? 50 : 68), it.title || '', { size: 26, weight: 600, fill: T.ink, maxW: 340 })}${it.text ? sansBlock(x + 104, y + 84, it.text, { size: 19, weight: 400, fill: T.sub, maxW: 340 }) : ''}`, { scale: 0.85, origin: [x, y + 59], dy: 0 });
+    g += A(p, `<rect x="${x}" y="${y}" width="470" height="118" rx="8" fill="${T.paper}" stroke="${red ? RED : T.line}" stroke-width="2.5"/>${icon(it.icon || 'chat', x + 24, y + 31, 56, red ? RED : T.ink, 1.5)}${(() => { const tl = wrap(it.title || '', 340, 26).length, tx = it.text ? wrap(it.text, 340, 19).length : 0; const hgt = tl * 31 + (tx ? 8 + tx * 24 : 0); const y0 = y + 59 - hgt / 2 + 22; return sansBlock(x + 104, y0, it.title || '', { size: 26, weight: 600, fill: T.ink, maxW: 340, lh: 1.2 }) + (tx ? sansBlock(x + 104, y0 + tl * 31 + 6, it.text, { size: 19, weight: 400, fill: T.sub, maxW: 340, lh: 1.25 }) : ''); })()}`, { scale: 0.85, origin: [x, y + 59], dy: 0 });
   });
   return g;
 };
