@@ -1,0 +1,10 @@
+{
+  "name": "video-explicativo-engine",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.0.0",
+    "@fontsource/inter": "^5.0.0",
+    "playwright-core": "^1.56.1"
+  }
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Inter'; font-weight: 400; src: url('node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 600; src: url('node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Plex Mono'; font-weight: 400; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Plex Mono'; font-weight: 500; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Plex Mono'; font-weight: 600; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 400; src: url('node_modules/@fontsource/inter/files/inter-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+  @font-face { font-family: 'Inter'; font-weight: 400; src: url('node_modules/@fontsource/inter/files/inter-cyrillic-400-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('node_modules/@fontsource/inter/files/inter-latin-ext-500-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('node_modules/@fontsource/inter/files/inter-cyrillic-500-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Inter'; font-weight: 600; src: url('node_modules/@fontsource/inter/files/inter-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+  @font-face { font-family: 'Inter'; font-weight: 600; src: url('node_modules/@fontsource/inter/files/inter-cyrillic-600-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('node_modules/@fontsource/inter/files/inter-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('node_modules/@fontsource/inter/files/inter-cyrillic-700-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Plex Mono'; font-weight: 400; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Plex Mono'; font-weight: 400; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-cyrillic-400-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Plex Mono'; font-weight: 500; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-500-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Plex Mono'; font-weight: 500; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-cyrillic-500-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Plex Mono'; font-weight: 600; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Plex Mono'; font-weight: 600; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-cyrillic-600-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  html, body { margin: 0; padding: 0; background: #000; }
+  #root { position: relative; overflow: hidden; }
+  .stage { position: absolute; inset: 0; overflow: hidden; will-change: transform, opacity; }
+  .stage svg.art { position: absolute; inset: 0; }
+  .hl { position: absolute; left: 108px; right: 108px; font-family: 'Inter', sans-serif; }
+  .hl .sec { font-family: 'Plex Mono', monospace; font-size: 17px; letter-spacing: .32em; text-transform: uppercase; }
+  .hl .line1 { font-weight: 600; letter-spacing: -.03em; line-height: 1.05; }
+  .hl .line2 { font-weight: 400; letter-spacing: -.02em; line-height: 1.1; }
+  .mask { overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
+  .tags { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .tag { font-family: 'Plex Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; padding: 5px 10px; border: 1.5px solid; }
+  .chrome { position: absolute; inset: 0; pointer-events: none; font-family: 'Plex Mono', monospace; font-size: 16px; letter-spacing: .32em; text-transform: uppercase; }
+  .chrome .c { position: absolute; }
+  .cap { position: absolute; left: 60px; right: 60px; top: 1190px; display: flex; justify-content: center; }
+  .cap span { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 31px; letter-spacing: -.01em; padding: 4px 12px 6px; border-radius: 3px; text-align: center; line-height: 1.25; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="figures.js"></script>
+<script src="templates.js"></script>
+<script src="core.js"></script>
+</body>
+</html>

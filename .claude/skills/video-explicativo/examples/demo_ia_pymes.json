@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "title": "IA en una pyme en 90 días",
+    "kicker": "Guía práctica · Pymes",
+    "brandUrl": "IA Fácil",
+    "voice": { "elevenlabs_voice_id": "hVvlnh6pB9hT91DI7dXN" },
+    "music": { "mood": "tech", "bpm": 96 }
+  },
+  "chapters": [
+    {
+      "section": "El día a día", "fig": "Un equipo saturado", "theme": "dark",
+      "scenes": [
+        {
+          "template": "persona",
+          "data": {
+            "hair": "long",
+            "items": [
+              { "icon": "mail", "title": "Correos repetidos", "text": "Las mismas preguntas, todos los días" },
+              { "icon": "document", "title": "Datos copiados a mano", "text": "De una hoja de cálculo a otra" },
+              { "icon": "chart", "title": "Reportes manuales", "text": "Horas armando lo que ya existe", "red": true }
+            ]
+          },
+          "show": ["person"],
+          "beats": [
+            { "say": "En la mayoría de las pymes, el equipo no da abasto.", "headline": "No damos abasto." },
+            { "say": "Responde los mismos correos,", "show": ["i0"] },
+            { "say": "copia datos entre hojas de cálculo", "show": ["i1"] },
+            { "say": "y arma reportes a mano.", "show": ["i2"] }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "El diagnóstico", "fig": "Cómo se va el tiempo", "theme": "light",
+      "scenes": [
+        {
+          "template": "bars",
+          "transition": { "type": "wipe_up" },
+          "data": {
+            "bars": [
+              { "label": "Tareas repetitivas", "value": 60, "display": "60%", "highlight": true },
+              { "label": "Atención a clientes", "value": 25, "display": "25%" },
+              { "label": "Trabajo estratégico", "value": 15, "display": "15%" }
+            ]
+          },
+          "beats": [
+            { "say": "Revisamos cuarenta empresas del Eje Cafetero.", "headline": "40 empresas.", "tags": ["Diagnóstico · Eje Cafetero"] },
+            { "say": "El sesenta por ciento del tiempo se va en tareas repetitivas.", "headline": "60% del tiempo.", "show": ["bars"], "tags": ["Diagnóstico · Eje Cafetero"] },
+            { "say": "Solo el quince, en pensar el negocio.", "headline": "60% del tiempo.\nSolo 15% en estrategia.", "tags": ["Diagnóstico · Eje Cafetero"] }
+          ]
+        },
+        {
+          "template": "panels",
+          "transition": { "type": "slide_left" },
+          "data": {
+            "panels": [
+              { "title": "Ventas", "subtitle": "CRM", "form": "Lead", "sys": "CRM", "label": "Clientes" },
+              { "title": "Servicio", "subtitle": "WhatsApp", "form": "Chat", "sys": "WA", "label": "Consultas" },
+              { "title": "Finanzas", "subtitle": "Excel", "form": "Factura", "sys": "XLS", "label": "Pagos" }
+            ]
+          },
+          "show": ["panels", "process"],
+          "beats": [
+            { "say": "Y cada área usa su propia herramienta.", "headline": "3 áreas.", "show": ["forms", "systems"], "tags": ["CRM", "WhatsApp", "Excel"] },
+            { "say": "Los datos no se hablan entre sí.", "headline": "3 áreas.\n0 datos conectados.", "show": ["broken"], "tags": ["CRM", "WhatsApp", "Excel"] },
+            { "say": "Y el cliente repite su historia una y otra vez.", "headline": "La misma historia.", "tags": ["!× 3"], "show": ["person", "alerts"], "set": { "personAt": 2 } }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Lo que se necesita", "fig": "El objetivo", "theme": "dark",
+      "scenes": [
+        {
+          "template": "blueprint",
+          "transition": { "type": "zoom", "origin": [540, 800] },
+          "data": { "checks": ["Automatizar lo repetitivo.", "Conectar los datos.", "Liberar al equipo."], "dimLabel": "1 sistema", "note": "no más software: mejor conectado" },
+          "show": ["ghosts"],
+          "beats": [
+            { "say": "No se trata de comprar más software." },
+            { "say": "Se trata de automatizar lo repetitivo,", "show": ["door", "dims", "c0"] },
+            { "say": "conectar los datos,", "show": ["c1"] },
+            { "say": "y liberar al equipo.", "show": ["c2"] }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "El método", "fig": "90 días en 4 fases", "theme": "light",
+      "scenes": [
+        {
+          "template": "process",
+          "transition": { "type": "wipe_up" },
+          "data": {
+            "steps": [
+              { "title": "Diagnóstico", "text": "Semanas 1-2 · mapear dónde se pierde el tiempo", "icon": "search" },
+              { "title": "Piloto", "text": "Semanas 3-6 · un asistente de IA en un proceso clave", "icon": "rocket" },
+              { "title": "Capacitación", "text": "Semanas 7-9 · el equipo aprende a usarlo y mejorarlo", "icon": "users" },
+              { "title": "Escalamiento", "text": "Semanas 10-13 · conectar ventas, servicio y finanzas", "icon": "flow" }
+            ]
+          },
+          "beats": [
+            { "say": "El método toma noventa días.", "headline": "90 días.", "show": ["line"] },
+            { "say": "Primero, un diagnóstico de los procesos.", "show": ["s0"], "set": { "active": 0 } },
+            { "say": "Luego, un piloto en un solo proceso.", "show": ["s1"], "set": { "active": 1 } },
+            { "say": "Después, capacitar al equipo.", "show": ["s2"], "set": { "active": 2 } },
+            { "say": "Y al final, escalar a toda la empresa.", "show": ["s3"], "set": { "active": 3 } }
+          ]
+        },
+        {
+          "template": "team_board",
+          "transition": { "type": "slide_left" },
+          "data": { "board": "Procesos · hoy → mañana", "labelA": "Tu equipo", "labelB": "Facilitadores", "laptop": "IA", "screenText": "Asistente IA" },
+          "show": ["board", "groupA"],
+          "beats": [
+            { "say": "La clave es trabajar con las personas,", "headline": "Con tu equipo.", "show": ["notes", "groupB"] },
+            { "say": "primero los procesos, después la herramienta.", "headline": "Primero las personas.\nDespués la herramienta.", "show": ["screen"] }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Cómo funciona", "fig": "Un asistente conectado", "theme": "dark",
+      "scenes": [
+        {
+          "template": "iso_hub",
+          "transition": { "type": "wipe_up" },
+          "data": { "tabs": ["Diagnóstico", "Piloto", "Capacitación", "Escalamiento"], "tiles": ["Ventas", "Servicio", "Finanzas"], "accountLabel": "Asistente IA" },
+          "show": ["tabs", "tiles"],
+          "beats": [
+            { "say": "Hoy, cada consulta recorre un laberinto.", "headline": "Un laberinto.", "show": ["maze"], "set": { "tab": 0 } },
+            { "say": "Con un asistente de inteligencia artificial,", "headline": "Un asistente.", "show": ["person", "badge"], "set": { "tab": 1 } },
+            { "say": "el cliente pregunta una sola vez,", "show": ["secure"] },
+            { "say": "y las tres áreas quedan conectadas.", "headline": "Todo conectado.", "show": ["links", "door", "checks", "account"], "set": { "tab": 3 } }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "El resultado", "fig": "Piloto · café de especialidad", "theme": "light",
+      "scenes": [
+        {
+          "template": "stats",
+          "transition": { "type": "wipe_up" },
+          "data": {
+            "stats": [{ "value": "2h", "label": "Respuesta" }, { "value": "30%", "label": "Tiempo recuperado" }, { "value": "90", "label": "Días" }],
+            "panels": [
+              { "title": "Servicio", "icon": "chat", "text": "De 24 horas a 2 horas de respuesta" },
+              { "title": "Equipo", "icon": "clock", "text": "Un tercio del tiempo operativo libre" },
+              { "title": "Sistemas", "icon": "link", "text": "Sin cambiar las herramientas actuales" }
+            ]
+          },
+          "beats": [
+            { "say": "En una empresa de café de especialidad,", "show": ["panels"], "tags": ["Piloto · 18 empleados"] },
+            { "say": "la respuesta a clientes bajó de veinticuatro horas a dos.", "show": ["s0"], "tags": ["Piloto · 18 empleados"] },
+            { "say": "El equipo recuperó el treinta por ciento de su tiempo.", "show": ["s1"], "tags": ["Piloto · 18 empleados"] },
+            { "say": "Todo, en noventa días.", "show": ["s2", "bus"], "tags": ["Piloto · 18 empleados"] }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Por qué importa", "fig": "Tiempo para lo humano", "theme": "dark",
+      "scenes": [
+        {
+          "template": "network",
+          "transition": { "type": "wipe_up" },
+          "data": { "actors": ["Clientes", "Equipo", "Líderes"], "doorLabel": "Datos conectados + IA", "outcomes": ["Crear", "Vender", "Cuidar"], "rulerLabel": "Listos para crecer" },
+          "show": ["actors"],
+          "beats": [
+            { "say": "La inteligencia artificial no reemplaza a tu equipo.", "headline": "No reemplaza.", "show": ["links", "door"] },
+            { "say": "Le devuelve tiempo para crear, vender y cuidar.", "headline": "Devuelve tiempo.", "show": ["outcomes"] },
+            { "say": "Y deja a tu empresa lista para crecer.", "headline": "Devuelve tiempo.\nLista para crecer.", "show": ["ruler"] }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "", "fig": "", "theme": "dark",
+      "scenes": [
+        {
+          "template": "statement",
+          "transition": { "type": "zoom", "origin": [540, 700] },
+          "noSection": true,
+          "data": { "lines": ["Empieza por un proceso.", "Empieza esta semana."], "size": 58, "y": 560 },
+          "beats": [{ "say": "Empieza por un proceso. Empieza esta semana." }]
+        },
+        {
+          "template": "logo_end",
+          "transition": { "type": "fade" },
+          "hold": 1.8,
+          "data": { "brand": "IA Fácil", "tagline": "Inteligencia artificial en lenguaje humano.", "url": "" },
+          "beats": [{ "say": "IA Fácil. Inteligencia artificial en lenguaje humano." }]
+        }
+      ]
+    }
+  ]
+}
