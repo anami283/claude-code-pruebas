@@ -60,7 +60,7 @@ function ffmpegWriter(out) {
 
 async function main() {
   const exe = findChromium();
-  const browser = await chromium.launch({ executablePath: exe, args: ['--disable-gpu', '--font-render-hinting=none'] });
+  const browser = await chromium.launch({ executablePath: exe, args: ['--disable-gpu', '--font-render-hinting=none', '--disable-background-networking', '--disable-component-update', '--no-first-run'] });
   const dur = timeline.duration;
 
   if (args.png) {

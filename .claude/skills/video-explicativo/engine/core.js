@@ -222,7 +222,7 @@
     } else {
       html += `<div class="stage">${renderScene(sc, lt)}</div>`;
     }
-    html += chrome(chromeSc);
+    if (!meta.noChrome) html += chrome(chromeSc);
     const cap = captionAt(t);
     if (cap && !cap.sc.noCaption) {
       const T = cap.sc.T, cp = E.out((t - cap.t0) / 0.18);
