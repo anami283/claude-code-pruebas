@@ -1,0 +1,69 @@
+@font-face{font-family:Poppins;font-weight:400;src:url(fonts/poppins-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:600;src:url(fonts/poppins-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Poppins;font-weight:700;src:url(fonts/poppins-latin-700-normal.woff2) format("woff2")}
+:root{--bg:#141218;--magenta:#FF0A6C;--morado:#8B2FC9;--lila:#D3A6FF;--txt:#FFFFFF;--txt2:#DAD5E3}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--bg);font-family:Poppins,sans-serif;color:var(--txt)}
+#glow{position:absolute;right:-420px;bottom:-460px;width:1300px;height:1100px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,10,108,.16),rgba(139,47,201,.10) 55%,rgba(20,18,24,0) 100%)}
+.center-text{position:absolute;left:660px;width:1240px;text-align:center;opacity:0}
+
+/* Sobres */
+.env{position:absolute;left:0;top:0;width:140px;opacity:0}
+.env svg{display:block;width:140px;height:98px}
+.env svg rect,.env svg path{fill:none;stroke:#fff;stroke-width:3.2;stroke-linejoin:round;stroke-linecap:round}
+.env .lbl{margin:10px auto 0;width:max-content;display:flex;align-items:center;gap:8px;margin-left:50%;transform:translateX(-50%);font-size:19px;font-weight:400;color:var(--txt2);
+  padding:4px 14px;border:1px solid rgba(211,166,255,.35);border-radius:999px;background:rgba(20,18,24,.7)}
+
+/* Escena 1 */
+#s1-time{top:420px;font-size:104px;font-weight:700;letter-spacing:-1px}
+#s1-sub{top:568px;font-size:44px;font-weight:400;color:var(--txt2)}
+
+/* Escena 2 */
+#s2-blocks{position:absolute;left:0;top:250px;width:1920px;height:220px}
+#laura{position:absolute;left:40px;top:298px;width:600px;height:782px}
+.blk{position:absolute;top:0;width:255px;height:200px;border-radius:22px;opacity:0;
+  background:#1E1B24;border:1px solid rgba(211,166,255,.28);box-shadow:0 0 0 14px #141218;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.blk .t{font-size:25px;font-weight:600;text-align:center;line-height:1.2;padding:0 18px}
+.blk .n{font-size:54px;font-weight:700;color:var(--lila);line-height:1}
+.plus{position:absolute;top:70px;width:50px;text-align:center;font-size:50px;font-weight:400;color:var(--txt2);opacity:0}
+#s2-total{top:560px;font-size:140px;font-weight:700;color:var(--magenta);letter-spacing:-2px;line-height:1.1}
+#s2-week{top:760px;font-size:46px;font-weight:400;color:var(--txt2)}
+
+/* Escena 3 */
+.q{font-size:74px;font-weight:700;letter-spacing:-1px;opacity:1}
+#s3-l1{top:400px}
+#s3-l2{top:520px;color:var(--lila)}
+.q .w{display:inline-block;opacity:0}
+
+/* Escena 4 */
+#s4-doc{position:absolute;left:990px;top:110px;width:520px;height:380px;border-radius:18px;background:#FFFFFF;opacity:0;
+  padding:38px 44px;box-shadow:0 30px 80px rgba(139,47,201,.35)}
+#s4-doc .doc-bar{width:90px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--magenta),var(--morado))}
+#s4-doc .doc-title{margin-top:20px;font-size:31px;font-weight:700;color:var(--bg);line-height:1.2}
+#s4-doc .doc-lines{margin-top:26px;display:flex;flex-direction:column;gap:16px}
+#s4-doc .doc-lines i{display:block;height:12px;border-radius:6px;background:#E6E1EE}
+#s4-doc .doc-checks{position:absolute;right:44px;bottom:34px;display:flex;gap:10px}
+#s4-doc .doc-checks span{width:22px;height:22px;border-radius:50%;background:var(--lila)}
+#s4-flow{position:absolute;left:0;top:640px;width:1920px;height:300px}
+#s4-line{position:absolute;left:0;top:0}
+#s4-line path{fill:none;stroke:url(#none);stroke:var(--magenta);stroke-width:4;stroke-linecap:round}
+.step{position:absolute;top:0;width:300px;margin-left:-150px;text-align:center;opacity:0}
+.step .dot{margin:0 auto;width:104px;height:104px;border-radius:50%;background:var(--bg);border:4px solid var(--magenta);
+  display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:700;color:#fff}
+.step .st{margin-top:18px;font-size:32px;font-weight:600}
+.step .ss{margin-top:4px;font-size:22px;font-weight:400;color:var(--txt2)}
+.chev{position:absolute;top:31px;width:40px;margin-left:-20px;text-align:center;font-size:34px;font-weight:700;color:var(--lila);opacity:0}
+
+/* Escena 5 */
+#s5-logo{position:absolute;left:1132px;top:150px;width:295px;height:132px;opacity:0}
+#s5-title{top:360px;font-size:94px;font-weight:700;letter-spacing:-2px;line-height:1.15}
+#s5-sub{top:505px;font-size:38px;font-weight:400;color:var(--txt2)}
+#s5-rule{position:absolute;left:1180px;top:640px;width:200px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--magenta),var(--morado));opacity:0}
+#s5-fac{top:690px;font-size:36px;font-weight:600}
+#s5-tag{top:770px;font-size:28px;font-weight:400;color:var(--lila)}
+.env .av{width:20px;height:20px;border-radius:50%;flex:none;position:relative;overflow:hidden}
+.env .av::after{content:"";position:absolute;left:5px;top:3px;width:10px;height:10px;border-radius:50%;background:#F3D9C8;box-shadow:0 9px 0 4px #F3D9C8}
+#laura .var{opacity:0}

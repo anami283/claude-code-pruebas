@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>De la bandeja al reporte · Intro</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="stage">
+  <div id="glow"></div>
+
+  <!-- Protagonista -->
+  <div id="laura"></div>
+
+  <!-- Sobres compartidos por las escenas 1, 2 y 4 -->
+  <div id="envs"></div>
+
+  <!-- Escena 1 · El caos -->
+  <div class="center-text" id="s1-time">Lunes, 7:00 a.&nbsp;m.</div>
+  <div class="center-text" id="s1-sub">9 correos. 7 áreas. 1 reporte para las 8:00.</div>
+
+  <!-- Escena 2 · El costo -->
+  <div id="s2-blocks"></div>
+  <div class="center-text" id="s2-total">0 h 0 min</div>
+  <div class="center-text" id="s2-week">Cada semana.</div>
+
+  <!-- Escena 3 · La pregunta -->
+  <div class="center-text q" id="s3-l1"></div>
+  <div class="center-text q" id="s3-l2"></div>
+
+  <!-- Escena 4 · El orden -->
+  <div id="s4-doc">
+    <div class="doc-bar"></div>
+    <div class="doc-title">Reporte ejecutivo semanal</div>
+    <div class="doc-lines"><i style="width:92%"></i><i style="width:84%"></i><i style="width:88%"></i><i style="width:60%"></i></div>
+    <div class="doc-checks"><span></span><span></span><span></span></div>
+  </div>
+  <div id="s4-flow">
+    <svg id="s4-line" width="1920" height="200" viewBox="0 0 1920 200"><path id="s4-path" d="M800 52 L1700 52" /></svg>
+  </div>
+
+  <!-- Escena 5 · Título y cierre -->
+  <img id="s5-logo" src="assets/enyoi-logo.png" alt="Enyoi">
+  <div class="center-text" id="s5-title">De la bandeja al reporte</div>
+  <div class="center-text" id="s5-sub">Microsoft 365 Copilot para equipos administrativos</div>
+  <div id="s5-rule"></div>
+  <div class="center-text" id="s5-fac">Facilitadora: Ana Milena Alonso Cantor</div>
+  <div class="center-text" id="s5-tag">SkillUp · Transforma tu dIA</div>
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="laura.js"></script>
+<script src="timeline.js"></script>
+</body>
+</html>

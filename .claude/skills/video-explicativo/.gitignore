@@ -1,0 +1,5 @@
+engine/node_modules/
+engine/package-lock.json
+*_work/
+__pycache__/
+examples/ia_veterinaria_amac.mp4
