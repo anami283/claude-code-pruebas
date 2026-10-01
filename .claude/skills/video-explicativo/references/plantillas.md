@@ -44,7 +44,12 @@
   ]
 }
 ```
-Transiciones: `cut`, `fade`, `wipe_up`, `push_up`, `slide_left`, `wipe_left`, `zoom` (usa `origin` en px sobre la escena ANTERIOR).
+Transiciones: `cut`, `fade`, `wipe_up`, `push_up`, `slide_left`, `wipe_left`, `zoom` (usa `origin` en px sobre la escena ANTERIOR), y las 3D `glide`, `flip` y `zoom_blur`. En el estilo AMAC, `wipe_up`/`push_up` se convierten en `glide` y `slide_left`/`wipe_left` en `flip`, salvo que se indique `"keep": true`.
+
+Campos extra de `meta`:
+- `style`: `amac` (predeterminado) o `caso`.
+- `logo`: ruta al logo de la empresa, relativa al storyboard; también se puede pasar con `--logo`.
+- `noChrome`: oculta el marco.
 
 ## Plantillas narrativas (réplica del video de referencia)
 
@@ -104,7 +109,11 @@ Capas: `actors`, `links`, `door`, `outcomes`, `ruler`.
 ### `statement`: frase centrada
 `data`: `lines[]` (o `text`), `size` (58), `y` (600), `sub`.
 
+### `intro`: apertura con el logo de la empresa
+`data`: `title`, `subtitle`, `by` (ej. "Facilitado por Ana Milena Alonso Cantor") y `logo` (opcional; por defecto usa el `--logo`). Úsala con `noSection` y `noCounter`, y como capítulo `num: 0`.
+
 ### `logo_end`: cierre de marca
+Si hay logo de empresa (`--logo` o `data.logo`), muestra la tarjeta del logo con halo, la tagline tecleada y el `url`. Con `useLogo: false` vuelve al wordmark en texto.
 `data`: `brand`, `tagline` (se teclea letra por letra), `url`, `size` (150), `swoosh` (true agrega el trazo rojo).
 
 ## Plantillas genéricas (para cualquier contenido)

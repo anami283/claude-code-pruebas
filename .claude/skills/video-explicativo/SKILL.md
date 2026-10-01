@@ -1,11 +1,15 @@
 ---
 name: video-explicativo
-description: Genera videos explicativos animados en español (MP4 4:5, 60-95 s) con el estilo "caso de estudio / plano técnico" (ilustración en línea, grilla técnica, acento rojo, titulares grandes, subtítulos, voz en off y música) a partir de CUALQUIER archivo de contenido (PDF, DOCX, PPTX, MD, TXT, HTML). Úsala cuando el usuario pida "hazme un video explicativo", "convierte este documento en video", "video animado de este caso", "explainer", "video tipo caso de estudio", "video para LinkedIn que explique esto", o adjunte un archivo pidiendo un video que lo explique.
+description: Genera videos explicativos animados en español (MP4 4:5, 60-95 s) con el estilo AMAC de Ana Milena Alonso Cantor (brandbook azul marino / oro, Poppins, fondo 3D con partículas, paneles de vidrio, cámara en movimiento, transiciones 3D) y el logo de la empresa cliente adjuntado en cada video, a partir de CUALQUIER archivo de contenido (PDF, DOCX, PPTX, MD, TXT, HTML). Incluye además el estilo "caso" (réplica del video de referencia). Úsala cuando el usuario pida "hazme un video explicativo", "convierte este documento en video", "video animado de este caso", "explainer", "video tipo caso de estudio", "video para LinkedIn que explique esto", o adjunte un archivo pidiendo un video que lo explique.
 ---
 
-# Video explicativo en español (estilo caso de estudio)
+# Video explicativo en español (estilo AMAC)
 
-Convierte un archivo de contenido en un video animado MP4 que replica el estilo del video de referencia: 8 capítulos, ilustración line-art, grilla técnica, rojo como único acento, titulares que entran con máscara, subtítulos quemados, narración en off y música ambiental. El render es 100 % por código (HTML/SVG + Playwright + ffmpeg): es reproducible, rápido (unos 2 min por video) y no consume créditos de generación de video.
+Convierte un archivo de contenido en un video animado MP4 con la narrativa de 8 capítulos del video de referencia, pero con la identidad visual AMAC: paleta del brandbook, Poppins, fondo con profundidad y partículas, paneles de vidrio, cámara 3D, franja dorada y transiciones 3D. Todo va con subtítulos, voz en off y música ambiental. **El logo de la empresa para la que Ana Milena facilita se adjunta en cada video** (`--logo`).
+
+Estilos disponibles:
+- `amac`: el predeterminado. Ver `references/estilo-amac.md`.
+- `caso`: réplica fiel del video de referencia. Ver `references/guia-de-estilo.md`. El render es 100 % por código (HTML/SVG + Playwright + ffmpeg): es reproducible, rápido (unos 2 min por video) y no consume créditos de generación de video.
 
 Rutas relativas a esta carpeta (`.claude/skills/video-explicativo/`).
 
@@ -19,6 +23,9 @@ pip install -q numpy scipy pypdf python-docx python-pptx
 ```
 Chromium: el render busca `CHROMIUM_PATH`, luego `/opt/pw-browsers/chromium` y luego el Chrome del sistema. Si no hay ninguno: `npx playwright install chromium`.
 
+### 0.5 Pedir el logo de la empresa
+Antes de renderizar, pregunta para qué empresa es el video y pide su logo (PNG transparente idealmente) si no lo adjuntaron. Si no hay logo, el video sale sin él: el cierre usa el nombre en texto.
+
 ### 1. Leer el contenido
 ```bash
 python3 scripts/extract.py <archivo> --out /tmp/contenido.txt
@@ -29,13 +36,13 @@ Lee el texto completo. Si faltan datos clave (marca, URL, público, tono), usa l
 Lee, EN ESTE ORDEN:
 1. `references/guion.md`: cómo extraer la historia, reglas de redacción en español y mapa capítulo → plantilla.
 2. `references/plantillas.md`: formato JSON, capas y datos de cada plantilla.
-3. `references/guia-de-estilo.md`: el ADN visual, por si hay que decidir algo fuera de las reglas.
+3. `references/estilo-amac.md`: el estilo AMAC, el logo por empresa y la escena `intro`. Para el estilo "caso", `references/guia-de-estilo.md`.
 
-Usa como modelo `examples/demo_ia_pymes.json` (contenido genérico) y `examples/caso_rumania.json` (recreación fiel del video de referencia). Guarda el resultado como `<nombre>.json` junto al archivo del usuario o en la carpeta de trabajo.
+Usa como modelo `examples/ia_veterinaria_amac.json` (estilo AMAC con intro y logo), `examples/demo_ia_pymes.json` (contenido genérico) y `examples/caso_rumania.json` (recreación fiel del video de referencia). Guarda el resultado como `<nombre>.json` junto al archivo del usuario o en la carpeta de trabajo.
 
 Reglas que no se negocian:
 - De 140 a 230 palabras de voz, con frases de 4 a 12 palabras. Cada frase produce un cambio visual.
-- Capítulos alternados claro y oscuro. Cierre con `statement` + `logo_end`.
+- Abre con `intro` (título, promesa y "Facilitado por Ana Milena Alonso Cantor"). Alterna capítulos claros y oscuros, y cierra con `statement` + `logo_end`.
 - Cifras solo si están en el documento. Números en letras en `say` y en dígitos en `headline`/`caption`.
 
 Valida:
@@ -67,7 +74,7 @@ Voz por defecto recomendada: **"Carlos – Clear and authoritative"** (`hVvlnh6p
 
 ### 5. Renderizar el video final
 ```bash
-python3 scripts/build.py <sb>.json --tts <opción> --out <salida>.mp4 [--workers 4] [--music auto|none|pista.mp3] [--no-sfx]
+python3 scripts/build.py <sb>.json --tts <opción> --logo <logo_empresa.png> --out <salida>.mp4 [--style amac|caso] [--workers 4] [--music auto|none|pista.mp3] [--no-sfx]
 ```
 El comando hace todo esto:
 - Arma la línea de tiempo según la duración real de cada frase.
@@ -84,7 +91,7 @@ El comando hace todo esto:
 ## Ajustes frecuentes
 - **Más rápido o más lento**: `meta.voice.speed` (ElevenLabs, 0.9-1.1), `--gap 0.2` para menos pausa entre frases, o `pause` en un beat puntual.
 - **Formato 9:16 o 16:9**: el motor está diseñado para 4:5. Para Reels, renderiza en 4:5 y encuadra con `ffmpeg -vf "pad=1080:1920:0:285:color=#0E1628"`.
-- **Marca propia**: cambia `meta.kicker`, `meta.brandUrl` y `logo_end.data`. Los colores están en `engine/figures.js` (`THEMES`, `RED`).
+- **Otra empresa**: cambia `--logo`, `meta.kicker` y los textos de `intro`/`logo_end`. El estilo AMAC se mantiene. Las paletas están en `engine/figures.js` (`STYLES`).
 - **Nueva plantilla**: agrégala en `engine/templates.js` (devuelve SVG a partir de `ctx`) y regístrala en `scripts/validate.py`.
 
 ## Límites (dilos con honestidad si aplican)

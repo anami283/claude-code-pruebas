@@ -14,6 +14,7 @@ TEMPLATES = {
     "network": {"layers": {"actors", "links", "door", "outcomes", "ruler"}, "set": set()},
     "statement": {"layers": set(), "set": set()},
     "logo_end": {"layers": set(), "set": set()},
+    "intro": {"layers": set(), "set": set()},
     "cards": {"layers": {"items", "i0", "i1", "i2", "i3"}, "set": {"focus"}},
     "process": {"layers": {"line", "steps", "s0", "s1", "s2", "s3", "s4"}, "set": {"active"}},
     "before_after": {"layers": {"before", "after"}, "set": set()},
@@ -21,7 +22,7 @@ TEMPLATES = {
     "quote": {"layers": set(), "set": set()},
     "persona": {"layers": {"person", "items", "i0", "i1", "i2", "i3"}, "set": set()},
 }
-TRANSITIONS = {"cut", "none", "fade", "wipe_up", "wipe_left", "slide_left", "zoom", "push_up"}
+TRANSITIONS = {"cut", "none", "fade", "wipe_up", "wipe_left", "slide_left", "zoom", "push_up", "flip", "glide", "zoom_blur"}
 
 
 def validate(sb):

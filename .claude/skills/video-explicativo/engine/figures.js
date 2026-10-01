@@ -2,7 +2,10 @@
 // Todo devuelve strings SVG en el sistema de coordenadas 1080x1350.
 
 const W = 1080, H = 1350;
-const RED = '#E5202B';
+let RED = '#E5202B';        // acento único (rojo en "caso", oro en "amac")
+let ACCENT2 = '#2563EB';    // acento digital secundario (brillos, partículas)
+let FONT_SANS = 'Inter', FONT_MONO = 'Plex Mono';
+let STYLE = 'caso';
 
 const THEMES = {
   light: {
@@ -18,6 +21,32 @@ const THEMES = {
     figFill: '#FFFFFF', figDark: '#141B30', figLine: '#0E1628', figDarkLine: '#FFFFFF',
   },
 };
+
+// Paletas por estilo. "amac" = brandbook AMAC (predeterminado); "caso" = réplica del video de referencia.
+const STYLES = {
+  caso: { light: { ...THEMES.light }, dark: { ...THEMES.dark }, red: '#E5202B', accent2: '#2563EB', sans: 'Inter', mono: 'Plex Mono' },
+  amac: {
+    light: {
+      name: 'light', bg: '#F4F6FB', ink: '#0F1C3F', sub: '#4A5568', grid: 'rgba(26,58,143,0.07)',
+      paper: 'rgba(255,255,255,0.92)', line: '#1A3A8F', muted: '#C0C8D8', soft: '#E3E8F4',
+      capBg: 'rgba(13,27,75,0.92)', capFg: '#FFFFFF', tile: '#FFFFFF', tileSide: '#D5DDF0',
+      figFill: '#FFFFFF', figDark: '#0D1B4B', figLine: '#0D1B4B', figDarkLine: '#0D1B4B',
+    },
+    dark: {
+      name: 'dark', bg: '#0D1B4B', ink: '#FFFFFF', sub: '#C0C8D8', grid: 'rgba(192,200,216,0.06)',
+      paper: 'rgba(255,255,255,0.08)', line: '#C0C8D8', muted: 'rgba(192,200,216,0.28)', soft: 'rgba(255,255,255,0.12)',
+      capBg: 'rgba(13,27,75,0.80)', capFg: '#FFFFFF', tile: '#1A3A8F', tileSide: '#0F1C3F',
+      figFill: '#FFFFFF', figDark: '#1A3A8F', figLine: '#0D1B4B', figDarkLine: '#C0C8D8',
+    },
+    red: '#C9A84C', accent2: '#2563EB', sans: 'Poppins', mono: 'Poppins',
+  },
+};
+function applyStyle(name) {
+  const st = STYLES[name] || STYLES.amac;
+  STYLE = STYLES[name] ? name : 'amac';
+  Object.assign(THEMES.light, st.light); Object.assign(THEMES.dark, st.dark);
+  RED = st.red; ACCENT2 = st.accent2; FONT_SANS = st.sans; FONT_MONO = st.mono;
+}
 
 // ---------- utilidades ----------
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
@@ -51,11 +80,11 @@ function drawPath(d, p, attrs = '') {
 
 function mono(x, y, txt, o = {}) {
   const size = o.size ?? 16, ls = o.ls ?? 0.28, anchor = o.anchor ?? 'start', w = o.weight ?? 500;
-  return `<text x="${f(x)}" y="${f(y)}" font-family="Plex Mono" font-size="${size}" font-weight="${w}" letter-spacing="${size * ls}" fill="${o.fill}" text-anchor="${anchor}" ${o.extra || ''}>${esc(String(txt).toUpperCase())}</text>`;
+  return `<text x="${f(x)}" y="${f(y)}" font-family="${FONT_MONO}" font-size="${size}" font-weight="${w}" letter-spacing="${size * ls}" fill="${o.fill}" text-anchor="${anchor}" ${o.extra || ''}>${esc(String(txt).toUpperCase())}</text>`;
 }
 function sans(x, y, txt, o = {}) {
   const size = o.size ?? 28, anchor = o.anchor ?? 'start', w = o.weight ?? 600;
-  return `<text x="${f(x)}" y="${f(y)}" font-family="Inter" font-size="${size}" font-weight="${w}" letter-spacing="${o.ls ?? -0.01 * size}" fill="${o.fill}" text-anchor="${anchor}" ${o.extra || ''}>${esc(txt)}</text>`;
+  return `<text x="${f(x)}" y="${f(y)}" font-family="${FONT_SANS}" font-size="${size}" font-weight="${w}" letter-spacing="${o.ls ?? -0.01 * size}" fill="${o.fill}" text-anchor="${anchor}" ${o.extra || ''}>${esc(txt)}</text>`;
 }
 // Ajuste de línea aproximado para texto SVG.
 function wrap(text, maxW, size, factor = 0.53) {

@@ -365,13 +365,52 @@ TEMPLATES.statement = ctx => {
 TEMPLATES.statement.floor = false;
 
 // 10) CIERRE DE MARCA: wordmark + acento rojo + tagline tecleada + URL.
+// Tarjeta de logo (imagen de la empresa) con halo de luz; se usa en intro y cierre.
+function logoCard(cx, cy, w, h, src, p, T) {
+  if (p <= 0) return '';
+  const glowC = T.name === 'dark' ? ACCENT2 : '#7B5BE6';
+  return A(p, `<defs><radialGradient id="lgGlow"><stop offset="0" stop-color="${glowC}" stop-opacity=".6"/><stop offset="1" stop-color="${glowC}" stop-opacity="0"/></radialGradient></defs>
+    <ellipse cx="${cx}" cy="${cy}" rx="${w * 0.95}" ry="${h * 1.15}" fill="url(#lgGlow)"/>
+    <rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" rx="36" fill="#FFFFFF" opacity=".97"/>
+    <rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" rx="36" fill="none" stroke="${RED}" stroke-width="2.5" opacity=".9"/>
+    <image href="${src}" x="${cx - w / 2 + 36}" y="${cy - h / 2 + 30}" width="${w - 72}" height="${h - 60}" preserveAspectRatio="xMidYMid meet"/>`, { scale: 0.86, origin: [cx, cy], dy: 0 });
+}
+
+// 0) INTRO: logo de la empresa cliente + título del video + subtítulo.
+TEMPLATES.intro = ctx => {
+  const { T, data: d, t, meta } = ctx;
+  let g = '';
+  const logo = d.logo || meta.logoData;
+  const hasLogo = !!logo;
+  if (hasLogo) g += logoCard(540, 470, 460, 250, logo, E.back((t - 0.1) / 0.7), T);
+  const ty = hasLogo ? 720 : 560;
+  const lines = wrap(d.title || '', 860, 64, 0.52);
+  lines.forEach((l, i) => { g += A(E.out((t - 0.5 - i * 0.15) / 0.6), sans(540, ty + i * 76, l, { size: 64, anchor: 'middle', weight: 700, fill: T.ink, ls: -1.5 }), { dy: 30 }); });
+  const pl = E.out((t - 0.9) / 0.6);
+  if (pl > 0) g += `<g opacity="${pl}"><rect x="${540 - 50 * pl}" y="${ty + lines.length * 76 - 20}" width="${100 * pl}" height="4" rx="2" fill="${RED}"/></g>`;
+  if (d.subtitle) g += A(E.out((t - 1.0) / 0.6), sans(540, ty + lines.length * 76 + 40, d.subtitle, { size: 30, anchor: 'middle', weight: 400, fill: T.sub }), { dy: 16 });
+  if (d.by) g += A(E.out((t - 1.3) / 0.6), mono(540, ty + lines.length * 76 + 110, d.by, { size: 14, anchor: 'middle', fill: T.sub, ls: 0.25 }), { dy: 10 });
+  return g;
+};
+TEMPLATES.intro.floor = false;
+
 TEMPLATES.logo_end = ctx => {
   const { T, data: d, t } = ctx;
   const brand = d.brand || 'marca';
   let g = '';
+  const logo = d.logo || ctx.meta.logoData;
+  if (logo && d.useLogo !== false) {
+    g += logoCard(540, 520, 460, 250, logo, E.back((t - 0.1) / 0.7), T);
+    const tag = d.tagline || '';
+    const n = Math.floor(clamp((t - 0.8) / 1.2) * tag.length);
+    if (n > 0) g += sans(540, 730, tag.slice(0, n), { size: 34, anchor: 'middle', weight: 500, fill: T.ink });
+    const pu = E.out((t - 2.1) / 0.6);
+    if (pu > 0) g += `<g opacity="${pu}"><rect x="${540 - 24 * pu}" y="762" width="${48 * pu}" height="4" rx="2" fill="${RED}"/>${mono(540, 806, d.url || brand, { size: 15, anchor: 'middle', fill: T.sub })}</g>`;
+    return g;
+  }
   const pl = E.out((t - 0.1) / 0.8);
   const size = d.size || 150;
-  g += A(pl, `<text x="540" y="600" font-family="Inter" font-weight="700" font-size="${size}" letter-spacing="${-size * 0.04}" fill="${T.ink}" text-anchor="middle">${esc(brand)}</text>`, { scale: 0.92, origin: [540, 560], dy: 0 });
+  g += A(pl, `<text x="540" y="600" font-family="${FONT_SANS}" font-weight="700" font-size="${size}" letter-spacing="${-size * 0.04}" fill="${T.ink}" text-anchor="middle">${esc(brand)}</text>`, { scale: 0.92, origin: [540, 560], dy: 0 });
   const sw = E.inOut((t - 0.5) / 0.7);
   if (sw > 0 && d.swoosh) g += drawPath('M600 610 C640 560 670 500 705 440', sw, `stroke="${RED}" stroke-width="16" stroke-linecap="round"`) + (sw > 0.95 ? `<path d="M690 432 L722 418 L716 452 Z" fill="${RED}"/>` : '');
   const tag = d.tagline || '';
@@ -484,7 +523,7 @@ TEMPLATES.bars.floor = false;
 TEMPLATES.quote = ctx => {
   const { T, data: d, t } = ctx;
   const lines = wrap(d.text || '', 800, 48, 0.5);
-  let g = A(E.out(t / 0.5), `<text x="108" y="520" font-family="Inter" font-weight="700" font-size="200" fill="${RED}">“</text>`, { dy: 20 });
+  let g = A(E.out(t / 0.5), `<text x="108" y="520" font-family="${FONT_SANS}" font-weight="700" font-size="200" fill="${RED}">“</text>`, { dy: 20 });
   g += lines.map((l, i) => A(E.out((t - 0.2 - i * 0.12) / 0.6), sans(108, 600 + i * 62, l, { size: 48, weight: 500, fill: T.ink }))).join('');
   if (d.author) g += A(E.out((t - 0.8) / 0.6), mono(108, 640 + lines.length * 62, '— ' + d.author, { size: 16, fill: T.sub }));
   return g;

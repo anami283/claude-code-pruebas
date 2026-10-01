@@ -24,6 +24,16 @@
   @font-face { font-family: 'Plex Mono'; font-weight: 500; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-cyrillic-500-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
   @font-face { font-family: 'Plex Mono'; font-weight: 600; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
   @font-face { font-family: 'Plex Mono'; font-weight: 600; src: url('node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-cyrillic-600-normal.woff2') format('woff2'); unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+  @font-face { font-family: 'Poppins'; font-weight: 400; src: url('node_modules/@fontsource/poppins/files/poppins-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 400; src: url('node_modules/@fontsource/poppins/files/poppins-latin-ext-400-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Poppins'; font-weight: 500; src: url('node_modules/@fontsource/poppins/files/poppins-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 500; src: url('node_modules/@fontsource/poppins/files/poppins-latin-ext-500-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Poppins'; font-weight: 600; src: url('node_modules/@fontsource/poppins/files/poppins-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 600; src: url('node_modules/@fontsource/poppins/files/poppins-latin-ext-600-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Poppins'; font-weight: 700; src: url('node_modules/@fontsource/poppins/files/poppins-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 700; src: url('node_modules/@fontsource/poppins/files/poppins-latin-ext-700-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
+  @font-face { font-family: 'Poppins'; font-weight: 800; src: url('node_modules/@fontsource/poppins/files/poppins-latin-800-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 800; src: url('node_modules/@fontsource/poppins/files/poppins-latin-ext-800-normal.woff2') format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+A720-A7FF; }
   html, body { margin: 0; padding: 0; background: #000; }
   #root { position: relative; overflow: hidden; }
   .stage { position: absolute; inset: 0; overflow: hidden; will-change: transform, opacity; }
@@ -39,6 +49,17 @@
   .chrome .c { position: absolute; }
   .cap { position: absolute; left: 60px; right: 60px; top: 1190px; display: flex; justify-content: center; }
   .cap span { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 31px; letter-spacing: -.01em; padding: 4px 12px 6px; border-radius: 3px; text-align: center; line-height: 1.25; }
+  /* ---- estilo AMAC ---- */
+  body.amac .hl, body.amac .cap span, body.amac .chrome, body.amac .tag, body.amac .hl .sec { font-family: 'Poppins', sans-serif; }
+  body.amac .hl .line1 { font-weight: 700; letter-spacing: -.025em; }
+  body.amac .hl .line2 { font-weight: 400; letter-spacing: -.01em; }
+  body.amac .hl .sec { font-size: 15px; font-weight: 600; letter-spacing: .28em; }
+  body.amac .tag { border-radius: 999px; padding: 6px 14px; font-weight: 600; letter-spacing: .12em; font-size: 13px; backdrop-filter: blur(6px); }
+  body.amac .cap span { border-radius: 16px; padding: 8px 20px 10px; font-weight: 600; font-size: 30px; border: 1px solid rgba(192,200,216,.35); box-shadow: inset 5px 0 0 #C9A84C, 0 10px 30px rgba(5,12,40,.35); }
+  body.amac #root { background: radial-gradient(circle at 50% 45%, #13286E, #050B24 75%); }
+  body.amac .cap { top: 1150px; left: 70px; right: 70px; }
+  body.amac .chrome { font-size: 13px; font-weight: 600; letter-spacing: .22em; }
+  body.amac .stage svg.art { transform-origin: 540px 640px; }
 </style>
 </head>
 <body>

@@ -6,6 +6,10 @@
   const root = document.getElementById('root');
   root.style.width = W + 'px'; root.style.height = H + 'px';
   const meta = DATA.meta || {};
+  applyStyle(meta.style || 'amac');
+  const AMAC = STYLE === 'amac';
+  if (AMAC) document.body.classList.add('amac');
+  const hash = k => { const x = Math.sin(k * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); };
 
   // ---------- preparar escenas ----------
   const scenes = DATA.scenes.map((sc, i) => {
@@ -74,13 +78,53 @@
     return g;
   }
 
+  // Fondo AMAC: degradado con profundidad, orbes de luz, red de partículas, piso en perspectiva y banner ondulado.
+  function backgroundAmac(T, t, k) {
+    const dark = T.name === 'dark', id = T.name;
+    let g = `<defs>
+      <radialGradient id="bgA${id}" cx="28%" cy="18%" r="100%"><stop offset="0" stop-color="${dark ? '#1E3F99' : '#FFFFFF'}"/><stop offset=".5" stop-color="${dark ? '#0D1B4B' : '#F4F6FB'}"/><stop offset="1" stop-color="${dark ? '#060D2B' : '#DDE5F5'}"/></radialGradient>
+      <linearGradient id="wave${id}" x1="0" x2="1"><stop offset="0" stop-color="#2563EB"/><stop offset=".5" stop-color="#7B5BE6"/><stop offset="1" stop-color="#C0C8D8"/></linearGradient>
+      <linearGradient id="floor${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${dark ? '#2563EB' : '#1A3A8F'}" stop-opacity="0"/><stop offset="1" stop-color="${dark ? '#2563EB' : '#1A3A8F'}" stop-opacity="${dark ? .5 : .28}"/></linearGradient>
+    </defs><rect width="${W}" height="${H}" fill="url(#bgA${id})"/>`;
+    // orbes de luz que derivan lentamente (degradados radiales: baratos de renderizar)
+    const orbs = [[ACCENT2, dark ? .55 : .18, 0], ['#7B5BE6', dark ? .38 : .12, 2.1], [RED, dark ? .22 : .14, 4.2]];
+    g += `<defs>` + orbs.map(([c, o], i) => `<radialGradient id="orb${id}${i}"><stop offset="0" stop-color="${c}" stop-opacity="${o}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('') + `</defs>`;
+    g += orbs.map(([c, o, ph], i) => {
+      const x = 540 + Math.sin(t * 0.13 + ph + k) * 380, y = 420 + i * 260 + Math.cos(t * 0.11 + ph + k * 0.7) * 160;
+      return `<circle cx="${f(x)}" cy="${f(y)}" r="${430 + i * 40}" fill="url(#orb${id}${i})"/>`;
+    }).join('');
+    // piso en perspectiva (efecto tablero 3D)
+    const vy = 760, vx = 540 + Math.sin(t * 0.2 + k) * 40;
+    let fl = '';
+    for (let i = -9; i <= 9; i++) fl += `M${f(vx)} ${vy} L${f(540 + i * 170)} ${H}`;
+    const off = (t * 0.25) % 1;
+    for (let j = 0; j < 9; j++) { const z = (j + off) / 9, y = vy + (H - vy) * z * z; fl += `M0 ${f(y)} H${W}`; }
+    g += `<path d="${fl}" stroke="url(#floor${id})" stroke-width="1.2" fill="none"/>`;
+    // red de partículas (nodos que se conectan)
+    const N = 30, pts = [];
+    for (let i = 0; i < N; i++) {
+      const a = hash(i + k * 31), b = hash(i * 7.3 + k), c = hash(i * 3.1 + 9);
+      pts.push([a * W + Math.sin(t * (0.18 + c * 0.25) + i) * 70, b * 1100 + Math.cos(t * (0.15 + a * 0.2) + i * 1.3) * 60]);
+    }
+    let ln = '';
+    for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
+      const dx = pts[i][0] - pts[j][0], dy = pts[i][1] - pts[j][1], d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 190) ln += `<path d="M${f(pts[i][0])} ${f(pts[i][1])}L${f(pts[j][0])} ${f(pts[j][1])}" stroke="${dark ? '#8FB0FF' : '#1A3A8F'}" stroke-opacity="${f((1 - d / 190) * (dark ? .32 : .16))}" stroke-width="1"/>`;
+    }
+    g += ln + pts.map(([x, y], i) => `<circle cx="${f(x)}" cy="${f(y)}" r="${i % 5 === 0 ? 3.2 : 2}" fill="${i % 7 === 0 ? RED : (dark ? '#C0C8D8' : '#2563EB')}" opacity="${dark ? .8 : .45}"/>`).join('');
+    // banner ondulado azul-violeta-plata (firma de marca)
+    const wave = (amp, ph, y0) => { let d = `M0 ${H}`; for (let x = 0; x <= W; x += 30) d += ` L${x} ${f(y0 + Math.sin(x / 140 + t * 0.9 + ph) * amp)}`; return d + ` L${W} ${H} Z`; };
+    g += `<path d="${wave(14, 0, 1318)}" fill="url(#wave${id})" opacity="${dark ? .55 : .38}"/><path d="${wave(10, 2, 1330)}" fill="url(#wave${id})" opacity="${dark ? .35 : .25}"/>`;
+    return g;
+  }
+
   // ---------- titular (HTML) ----------
   function headlineHTML(sc, t) {
     const T = sc.T, ch = sc.chapter || {};
     let html = '';
     if (ch.section && !sc.noSection) {
       const secP = E.out((t - 0.1) / 0.5);
-      html += `<div class="hl" style="top:124px;color:${T.name === 'dark' ? '#B8C0D2' : T.sub};opacity:${secP}"><div class="sec">${esc(String(ch.num).padStart(2, '0'))} — ${esc(ch.section)}</div></div>`;
+      html += `<div class="hl" style="top:124px;color:${AMAC ? RED : (T.name === 'dark' ? '#B8C0D2' : T.sub)};opacity:${secP}"><div class="sec">${esc(String(ch.num).padStart(2, '0'))} — ${esc(ch.section)}</div></div>`;
     }
     const hs = sc.headlines;
     let curI = -1;
@@ -92,6 +136,7 @@
       const y = out ? -40 * E.inOut(p) : 0, op = out ? 1 - E.inOut(p) : 1;
       const rise = out ? 0 : (1 - E.out(p)) * 100;
       let s = `<div style="transform:translateY(${y}px);opacity:${op}${!h.text ? `;padding-top:${sc.tagsOffset ?? 150}px` : ''}">`;
+      if (h.text && AMAC) s += `<div style="position:absolute;left:-28px;top:10px;width:6px;height:${f(l2 ? size * 1.95 : size * 0.95)}px;border-radius:3px;background:linear-gradient(${RED},#E9D18A);box-shadow:0 0 14px ${RED};transform:scaleY(${f(out ? 1 : E.out(p))});transform-origin:top"></div>`;
       if (h.text) s += `<div class="mask"><div class="line1" style="font-size:${size}px;transform:translateY(${rise}%);color:${T.ink}">${esc(l1)}</div></div>`;
       if (l2) {
         const p2 = out ? 1 : E.out((t - h.t - 0.15) / 0.55);
@@ -103,7 +148,9 @@
           const txt = red ? String(tg).slice(1) : tg;
           const tp = out ? 1 : E.back((t - h.t - 0.25 - k * 0.18) / 0.4);
           const c = red ? RED : T.ink;
-          return `<span class="tag" style="color:${c};border-color:${c};opacity:${clamp(tp)};transform:scale(${lerp(0.7, 1, clamp(tp))})">${esc(txt)}</span>`;
+          const bgc = AMAC ? (red ? 'rgba(201,168,76,.14)' : (T.name === 'dark' ? 'rgba(255,255,255,.08)' : 'rgba(26,58,143,.06)')) : 'transparent';
+          const bc = AMAC && !red ? (T.name === 'dark' ? 'rgba(192,200,216,.45)' : 'rgba(26,58,143,.35)') : c;
+          return `<span class="tag" style="color:${c};border-color:${bc};background:${bgc};opacity:${clamp(tp)};transform:scale(${lerp(0.7, 1, clamp(tp))})">${esc(txt)}</span>`;
         }).join('') + `</div>`;
       }
       return s + `</div>`;
@@ -172,6 +219,24 @@
     return h + `</div>`;
   }
 
+  function chromeAmac(sc) {
+    const T = sc.T, ch = sc.chapter || {}, dark = T.name === 'dark';
+    const c = dark ? '#C0C8D8' : '#4A5568';
+    const total = Number(meta.chapters || 8), num = Number(ch.num || 0);
+    const glass = dark ? 'background:rgba(255,255,255,.07);border:1px solid rgba(192,200,216,.28)' : 'background:rgba(255,255,255,.7);border:1px solid rgba(26,58,143,.18)';
+    let h = `<div class="chrome" style="color:${c}">`;
+    if (meta.kicker) h += `<div class="c" style="left:60px;top:44px;padding:9px 18px;border-radius:999px;${glass};display:flex;align-items:center;gap:10px"><span style="width:8px;height:8px;border-radius:50%;background:${RED};box-shadow:0 0 10px ${RED}"></span>${esc(meta.kicker)}</div>`;
+    if (num && !sc.noCounter) {
+      const bars = Array.from({ length: total }, (_, i) => `<span style="width:22px;height:4px;border-radius:2px;background:${i < num ? RED : (dark ? 'rgba(192,200,216,.25)' : 'rgba(26,58,143,.18)')};${i === num - 1 ? `box-shadow:0 0 8px ${RED}` : ''}"></span>`).join('');
+      h += `<div class="c" style="right:60px;top:52px;display:flex;align-items:center;gap:12px"><span>${String(num).padStart(2, '0')} / ${String(total).padStart(2, '0')}</span><span style="display:flex;gap:5px">${bars}</span></div>`;
+    }
+    if (ch.fig) h += `<div class="c" style="left:60px;top:1262px;max-width:640px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.85">${esc(ch.fig)}</div>`;
+    const bigLogo = sc.template === 'intro' || sc.template === 'logo_end';
+    if (meta.logoData && !bigLogo) h += `<div class="c" style="right:56px;top:1236px;height:58px;padding:8px 16px;border-radius:14px;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(5,12,40,.25);display:flex;align-items:center"><img src="${meta.logoData}" style="max-height:42px;max-width:200px;object-fit:contain"></div>`;
+    else if (meta.brandUrl && !bigLogo) h += `<div class="c" style="right:60px;top:1262px">${esc(meta.brandUrl)}</div>`;
+    return h + `</div>`;
+  }
+
   // ---------- render de una escena en un "stage" ----------
   function renderScene(sc, t) {
     const tpl = TEMPLATES[sc.template];
@@ -179,6 +244,18 @@
     let art = '';
     try { art = tpl ? tpl(ctx) : ''; } catch (e) { art = `<text x="80" y="700" fill="red" font-size="24">${esc(sc.template + ': ' + e.message)}</text>`; }
     const floor = sc.floor !== false && (tpl && tpl.floor !== undefined ? tpl.floor : true);
+    if (AMAC) {
+      const dark = sc.T.name === 'dark', k = sc.index;
+      const floorLine = floor ? `<path d="M40 1152 H${W - 40}" stroke="${dark ? 'rgba(192,200,216,.4)' : 'rgba(26,58,143,.3)'}" stroke-width="1.5"/>` : '';
+      // cámara: entrada en profundidad + balanceo suave + acercamiento lento
+      const intro = 1 - E.out(t / 1.1);
+      const rx = 2.0 * Math.sin(t * 0.42 + k * 1.7) + intro * 9, ry = 2.8 * Math.sin(t * 0.31 + k * 0.9 + 1);
+      const sc0 = (1 + 0.035 * E.inOut(t / Math.max(3, sc.dur))) * (1 - intro * 0.05);
+      const glow = dark ? 'drop-shadow(0 0 14px rgba(37,99,235,.4))' : 'drop-shadow(0 14px 18px rgba(13,27,75,.16))';
+      const bgShift = `translate(${f(-ry * 3)}px,${f(-rx * 2)}px) scale(1.04)`;
+      return `<svg class="bg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="position:absolute;inset:0;transform:${bgShift}">${backgroundAmac(sc.T, t + k * 7, k)}</svg>` +
+        `<svg class="art" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="transform:perspective(1600px) rotateX(${f(rx)}deg) rotateY(${f(ry)}deg) scale(${f(sc0)});filter:${glow}">${floorLine}${art}</svg>${headlineHTML(sc, t)}`;
+    }
     const floorLine = floor ? `<path d="M0 1152 H${W}" stroke="${sc.T.name === 'dark' ? 'rgba(255,255,255,.35)' : sc.T.ink}" stroke-width="1.5"/>` : '';
     return `<svg class="art" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${background(sc.T)}${floorLine}${art}</svg>${headlineHTML(sc, t)}`;
   }
@@ -201,6 +278,13 @@
         const z = 1 + Math.pow(E.inOut(p), 2) * 9;
         return `transform-origin:${ox}px ${oy}px;transform:scale(${z})`;
       }
+      case 'flip': {
+        const q = isIn ? clamp((p - 0.5) / 0.5) : clamp(p / 0.5);
+        if (isIn) return p < 0.5 ? 'opacity:0' : `transform:perspective(1800px) rotateY(${f((1 - E.out(q)) * -90)}deg)`;
+        return p >= 0.5 ? 'opacity:0' : `transform:perspective(1800px) rotateY(${f(q * q * q * 90)}deg)`;
+      }
+      case 'glide': return isIn ? `opacity:${e};transform:perspective(1600px) translate3d(0,${f((1 - e) * 260)}px,${f(-(1 - e) * 500)}px) rotateX(${f((1 - e) * 20)}deg)` : `opacity:${f(1 - e)};transform:perspective(1600px) translate3d(0,${f(-e * 220)}px,${f(e * 260)}px)`;
+      case 'zoom_blur': return isIn ? `opacity:${e};transform:scale(${f(1.18 - 0.18 * e)});filter:blur(${f((1 - e) * 10)}px)` : `opacity:${f(1 - e)};transform:scale(${f(1 - 0.08 * e)})`;
       case 'push_up': return isIn ? `transform:translateY(${(1 - e) * H}px)` : `transform:translateY(${-e * H}px)`;
       default: return isIn ? '' : 'display:none';
     }
@@ -208,8 +292,10 @@
 
   window.renderAt = function (t) {
     const i = sceneIndexAt(t), sc = scenes[i];
-    const tr = sc.transition || { type: i === 0 ? 'none' : 'cut' };
-    const td = tr.dur ?? (tr.type === 'zoom' ? 1.0 : 0.6);
+    let tr = sc.transition || { type: i === 0 ? 'none' : 'cut' };
+    // en AMAC las transiciones planas se vuelven 3D (salvo transition.keep)
+    if (AMAC && !tr.keep) tr = { ...tr, type: ({ wipe_up: 'glide', push_up: 'glide', slide_left: 'flip', wipe_left: 'flip' })[tr.type] || tr.type };
+    const td = tr.dur ?? (tr.type === 'zoom' ? 1.0 : tr.type === 'flip' ? 0.8 : 0.6);
     const lt = t - sc.start;
     let html = '';
     let chromeSc = sc;
@@ -222,7 +308,7 @@
     } else {
       html += `<div class="stage">${renderScene(sc, lt)}</div>`;
     }
-    if (!meta.noChrome) html += chrome(chromeSc);
+    if (!meta.noChrome) html += AMAC ? chromeAmac(chromeSc) : chrome(chromeSc);
     const cap = captionAt(t);
     if (cap && !cap.sc.noCaption) {
       const T = cap.sc.T, cp = E.out((t - cap.t0) / 0.18);

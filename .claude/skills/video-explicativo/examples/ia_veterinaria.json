@@ -3,164 +3,511 @@
     "title": "IA en la práctica veterinaria",
     "kicker": "Guía práctica · Veterinaria",
     "brandUrl": "IA Fácil",
-    "voice": { "elevenlabs_voice_id": "hVvlnh6pB9hT91DI7dXN" },
-    "music": { "mood": "calido", "bpm": 92 }
+    "voice": {
+      "elevenlabs_voice_id": "hVvlnh6pB9hT91DI7dXN"
+    },
+    "music": {
+      "mood": "calido",
+      "bpm": 92
+    },
+    "style": "caso"
   },
   "chapters": [
     {
-      "section": "El día a día", "fig": "Una consulta sin pausa", "theme": "dark",
+      "section": "El día a día",
+      "fig": "Una consulta sin pausa",
+      "theme": "dark",
       "scenes": [
         {
           "template": "persona",
           "data": {
             "hair": "bun",
             "items": [
-              { "icon": "document", "title": "Historias en papel", "text": "Datos dispersos entre carpetas y chats" },
-              { "icon": "clock", "title": "Diagnósticos contra reloj", "text": "Poco tiempo para cada paciente" },
-              { "icon": "calendar", "title": "Seguimientos perdidos", "text": "Vacunas y controles que se olvidan", "red": true }
+              {
+                "icon": "document",
+                "title": "Historias en papel",
+                "text": "Datos dispersos entre carpetas y chats"
+              },
+              {
+                "icon": "clock",
+                "title": "Diagnósticos contra reloj",
+                "text": "Poco tiempo para cada paciente"
+              },
+              {
+                "icon": "calendar",
+                "title": "Seguimientos perdidos",
+                "text": "Vacunas y controles que se olvidan",
+                "red": true
+              }
             ]
           },
-          "show": ["person"],
+          "show": [
+            "person"
+          ],
           "beats": [
-            { "say": "Cada día, un veterinario atiende más de lo que puede registrar.", "headline": "Sin pausa." },
-            { "say": "Historias clínicas en papel,", "show": ["i0"] },
-            { "say": "diagnósticos contra el reloj,", "show": ["i1"] },
-            { "say": "y seguimientos que se pierden.", "show": ["i2"] }
+            {
+              "say": "Cada día, un veterinario atiende más de lo que puede registrar.",
+              "headline": "Sin pausa."
+            },
+            {
+              "say": "Historias clínicas en papel,",
+              "show": [
+                "i0"
+              ]
+            },
+            {
+              "say": "diagnósticos contra el reloj,",
+              "show": [
+                "i1"
+              ]
+            },
+            {
+              "say": "y seguimientos que se pierden.",
+              "show": [
+                "i2"
+              ]
+            }
           ]
         }
       ]
     },
     {
-      "section": "El problema", "fig": "Información fragmentada", "theme": "light",
+      "section": "El problema",
+      "fig": "Información fragmentada",
+      "theme": "light",
       "scenes": [
         {
           "template": "panels",
-          "transition": { "type": "wipe_up" },
+          "transition": {
+            "type": "wipe_up"
+          },
           "data": {
             "panels": [
-              { "title": "Consulta", "subtitle": "Historia", "form": "Ficha", "sys": "Papel", "label": "Síntomas" },
-              { "title": "Laboratorio", "subtitle": "Exámenes", "form": "Orden", "sys": "Lab", "label": "Resultados" },
-              { "title": "Recepción", "subtitle": "Agenda", "form": "Cita", "sys": "Chat", "label": "Controles" }
+              {
+                "title": "Consulta",
+                "subtitle": "Historia",
+                "form": "Ficha",
+                "sys": "Papel",
+                "label": "Síntomas"
+              },
+              {
+                "title": "Laboratorio",
+                "subtitle": "Exámenes",
+                "form": "Orden",
+                "sys": "Lab",
+                "label": "Resultados"
+              },
+              {
+                "title": "Recepción",
+                "subtitle": "Agenda",
+                "form": "Cita",
+                "sys": "Chat",
+                "label": "Controles"
+              }
             ]
           },
-          "show": ["panels", "process"],
+          "show": [
+            "panels",
+            "process"
+          ],
           "beats": [
-            { "say": "La información vive en lugares distintos.", "headline": "3 lugares.", "show": ["forms", "systems"], "tags": ["Papel", "Laboratorio", "Chat"] },
-            { "say": "Y no se conecta entre sí.", "headline": "3 lugares.\n0 conexión.", "show": ["broken"], "tags": ["Papel", "Laboratorio", "Chat"] },
-            { "say": "El propietario repite la historia de su mascota una y otra vez.", "headline": "La misma historia.", "tags": ["!× 3"], "show": ["person", "alerts"], "set": { "personAt": 2 } }
+            {
+              "say": "La información vive en lugares distintos.",
+              "headline": "3 lugares.",
+              "show": [
+                "forms",
+                "systems"
+              ],
+              "tags": [
+                "Papel",
+                "Laboratorio",
+                "Chat"
+              ]
+            },
+            {
+              "say": "Y no se conecta entre sí.",
+              "headline": "3 lugares.\n0 conexión.",
+              "show": [
+                "broken"
+              ],
+              "tags": [
+                "Papel",
+                "Laboratorio",
+                "Chat"
+              ]
+            },
+            {
+              "say": "El propietario repite la historia de su mascota una y otra vez.",
+              "headline": "La misma historia.",
+              "tags": [
+                "!× 3"
+              ],
+              "show": [
+                "person",
+                "alerts"
+              ],
+              "set": {
+                "personAt": 2
+              }
+            }
           ]
         }
       ]
     },
     {
-      "section": "Lo que se necesita", "fig": "El objetivo", "theme": "dark",
+      "section": "Lo que se necesita",
+      "fig": "El objetivo",
+      "theme": "dark",
       "scenes": [
         {
           "template": "blueprint",
-          "transition": { "type": "zoom", "origin": [540, 800] },
-          "data": { "checks": ["Diagnosticar antes.", "Decidir con datos.", "Cuidar mejor."], "dimLabel": "1 historia clínica", "note": "el criterio sigue siendo humano" },
-          "show": ["ghosts"],
+          "transition": {
+            "type": "zoom",
+            "origin": [
+              540,
+              800
+            ]
+          },
+          "data": {
+            "checks": [
+              "Diagnosticar antes.",
+              "Decidir con datos.",
+              "Cuidar mejor."
+            ],
+            "dimLabel": "1 historia clínica",
+            "note": "el criterio sigue siendo humano"
+          },
+          "show": [
+            "ghosts"
+          ],
           "beats": [
-            { "say": "La inteligencia artificial no reemplaza al veterinario." },
-            { "say": "Le ayuda a diagnosticar antes,", "show": ["door", "dims", "c0"] },
-            { "say": "a decidir con datos,", "show": ["c1"] },
-            { "say": "y a cuidar mejor.", "show": ["c2"] }
+            {
+              "say": "La inteligencia artificial no reemplaza al veterinario."
+            },
+            {
+              "say": "Le ayuda a diagnosticar antes,",
+              "show": [
+                "door",
+                "dims",
+                "c0"
+              ]
+            },
+            {
+              "say": "a decidir con datos,",
+              "show": [
+                "c1"
+              ]
+            },
+            {
+              "say": "y a cuidar mejor.",
+              "show": [
+                "c2"
+              ]
+            }
           ]
         }
       ]
     },
     {
-      "section": "Dónde se aplica", "fig": "Cuatro usos concretos", "theme": "light",
+      "section": "Dónde se aplica",
+      "fig": "Cuatro usos concretos",
+      "theme": "light",
       "scenes": [
         {
           "template": "cards",
-          "transition": { "type": "wipe_up" },
+          "transition": {
+            "type": "wipe_up"
+          },
           "data": {
             "items": [
-              { "icon": "eye", "kicker": "Imagen", "title": "Apoyo al diagnóstico", "text": "Detecta patrones en radiografías y ecografías" },
-              { "icon": "document", "kicker": "Registro", "title": "Historia clínica inteligente", "text": "Resume la consulta y encuentra antecedentes" },
-              { "icon": "calendar", "kicker": "Seguimiento", "title": "Recordatorios automáticos", "text": "Vacunas, controles y tratamientos a tiempo" },
-              { "icon": "chart", "kicker": "Campo", "title": "Monitoreo del hato", "text": "Alertas tempranas de salud y producción" }
+              {
+                "icon": "eye",
+                "kicker": "Imagen",
+                "title": "Apoyo al diagnóstico",
+                "text": "Detecta patrones en radiografías y ecografías"
+              },
+              {
+                "icon": "document",
+                "kicker": "Registro",
+                "title": "Historia clínica inteligente",
+                "text": "Resume la consulta y encuentra antecedentes"
+              },
+              {
+                "icon": "calendar",
+                "kicker": "Seguimiento",
+                "title": "Recordatorios automáticos",
+                "text": "Vacunas, controles y tratamientos a tiempo"
+              },
+              {
+                "icon": "chart",
+                "kicker": "Campo",
+                "title": "Monitoreo del hato",
+                "text": "Alertas tempranas de salud y producción"
+              }
             ]
           },
           "beats": [
-            { "say": "Hoy ya se aplica en cuatro frentes.", "headline": "4 usos." },
-            { "say": "Apoya la lectura de radiografías y ecografías.", "show": ["i0"], "set": { "focus": 0 } },
-            { "say": "Organiza la historia clínica en segundos.", "show": ["i1"], "set": { "focus": 1 } },
-            { "say": "Recuerda vacunas y controles a cada propietario.", "show": ["i2"], "set": { "focus": 2 } },
-            { "say": "Y en el campo, alerta a tiempo sobre la salud del hato.", "show": ["i3"], "set": { "focus": 3 } }
+            {
+              "say": "Hoy ya se aplica en cuatro frentes.",
+              "headline": "4 usos."
+            },
+            {
+              "say": "Apoya la lectura de radiografías y ecografías.",
+              "show": [
+                "i0"
+              ],
+              "set": {
+                "focus": 0
+              }
+            },
+            {
+              "say": "Organiza la historia clínica en segundos.",
+              "show": [
+                "i1"
+              ],
+              "set": {
+                "focus": 1
+              }
+            },
+            {
+              "say": "Recuerda vacunas y controles a cada propietario.",
+              "show": [
+                "i2"
+              ],
+              "set": {
+                "focus": 2
+              }
+            },
+            {
+              "say": "Y en el campo, alerta a tiempo sobre la salud del hato.",
+              "show": [
+                "i3"
+              ],
+              "set": {
+                "focus": 3
+              }
+            }
           ]
         }
       ]
     },
     {
-      "section": "Cómo funciona", "fig": "Un asistente conectado", "theme": "dark",
+      "section": "Cómo funciona",
+      "fig": "Un asistente conectado",
+      "theme": "dark",
       "scenes": [
         {
           "template": "iso_hub",
-          "transition": { "type": "wipe_up" },
-          "data": { "tabs": ["Imagen", "Historia", "Seguimiento", "Campo"], "tiles": ["Consulta", "Laboratorio", "Propietario"], "accountLabel": "Asistente IA" },
-          "show": ["tabs", "tiles"],
+          "transition": {
+            "type": "wipe_up"
+          },
+          "data": {
+            "tabs": [
+              "Imagen",
+              "Historia",
+              "Seguimiento",
+              "Campo"
+            ],
+            "tiles": [
+              "Consulta",
+              "Laboratorio",
+              "Propietario"
+            ],
+            "accountLabel": "Asistente IA"
+          },
+          "show": [
+            "tabs",
+            "tiles"
+          ],
           "beats": [
-            { "say": "Hoy, cada dato recorre un camino distinto.", "headline": "Datos sueltos.", "show": ["maze"], "set": { "tab": 0 } },
-            { "say": "Con un asistente de inteligencia artificial,", "headline": "Un asistente.", "show": ["person", "badge"], "set": { "tab": 1 } },
-            { "say": "la información del paciente se protege,", "show": ["secure"], "set": { "tab": 2 } },
-            { "say": "y consulta, laboratorio y propietario quedan conectados.", "headline": "Todo conectado.", "show": ["links", "door", "checks", "account"], "set": { "tab": 3 } }
+            {
+              "say": "Hoy, cada dato recorre un camino distinto.",
+              "headline": "Datos sueltos.",
+              "show": [
+                "maze"
+              ],
+              "set": {
+                "tab": 0
+              }
+            },
+            {
+              "say": "Con un asistente de inteligencia artificial,",
+              "headline": "Un asistente.",
+              "show": [
+                "person",
+                "badge"
+              ],
+              "set": {
+                "tab": 1
+              }
+            },
+            {
+              "say": "la información del paciente se protege,",
+              "show": [
+                "secure"
+              ],
+              "set": {
+                "tab": 2
+              }
+            },
+            {
+              "say": "y consulta, laboratorio y propietario quedan conectados.",
+              "headline": "Todo conectado.",
+              "show": [
+                "links",
+                "door",
+                "checks",
+                "account"
+              ],
+              "set": {
+                "tab": 3
+              }
+            }
           ]
         }
       ]
     },
     {
-      "section": "El cambio", "fig": "Antes y después", "theme": "light",
+      "section": "El cambio",
+      "fig": "Antes y después",
+      "theme": "light",
       "scenes": [
         {
           "template": "before_after",
-          "transition": { "type": "slide_left" },
+          "transition": {
+            "type": "slide_left"
+          },
           "data": {
             "beforeTitle": "Sin IA",
-            "before": ["Datos en papel y chats", "Diagnóstico solo con intuición", "Controles olvidados"],
+            "before": [
+              "Datos en papel y chats",
+              "Diagnóstico solo con intuición",
+              "Controles olvidados"
+            ],
             "afterTitle": "Con IA",
-            "after": ["Una historia clínica viva", "Segunda opinión basada en datos", "Seguimiento automático"]
+            "after": [
+              "Una historia clínica viva",
+              "Segunda opinión basada en datos",
+              "Seguimiento automático"
+            ]
           },
           "beats": [
-            { "say": "Antes, el conocimiento quedaba disperso.", "headline": "El cambio.", "show": ["before"] },
-            { "say": "Ahora, cada decisión se apoya en toda la historia del paciente.", "show": ["after"] }
+            {
+              "say": "Antes, el conocimiento quedaba disperso.",
+              "headline": "El cambio.",
+              "show": [
+                "before"
+              ]
+            },
+            {
+              "say": "Ahora, cada decisión se apoya en toda la historia del paciente.",
+              "show": [
+                "after"
+              ]
+            }
           ]
         }
       ]
     },
     {
-      "section": "Por qué importa", "fig": "Más tiempo para cuidar", "theme": "dark",
+      "section": "Por qué importa",
+      "fig": "Más tiempo para cuidar",
+      "theme": "dark",
       "scenes": [
         {
           "template": "network",
-          "transition": { "type": "wipe_up" },
-          "data": { "actors": ["Veterinarios", "Propietarios", "Productores"], "doorLabel": "Datos conectados + IA", "outcomes": ["Prevenir", "Tratar", "Acompañar"], "rulerLabel": "Bienestar animal" },
-          "show": ["actors"],
+          "transition": {
+            "type": "wipe_up"
+          },
+          "data": {
+            "actors": [
+              "Veterinarios",
+              "Propietarios",
+              "Productores"
+            ],
+            "doorLabel": "Datos conectados + IA",
+            "outcomes": [
+              "Prevenir",
+              "Tratar",
+              "Acompañar"
+            ],
+            "rulerLabel": "Bienestar animal"
+          },
+          "show": [
+            "actors"
+          ],
           "beats": [
-            { "say": "La tecnología se encarga de lo repetitivo.", "headline": "Menos papel.", "show": ["links", "door"] },
-            { "say": "El veterinario gana tiempo para prevenir, tratar y acompañar.", "headline": "Más cuidado.", "show": ["outcomes"] },
-            { "say": "Y el bienestar animal sale ganando.", "headline": "Más cuidado.\nMejor bienestar animal.", "show": ["ruler"] }
+            {
+              "say": "La tecnología se encarga de lo repetitivo.",
+              "headline": "Menos papel.",
+              "show": [
+                "links",
+                "door"
+              ]
+            },
+            {
+              "say": "El veterinario gana tiempo para prevenir, tratar y acompañar.",
+              "headline": "Más cuidado.",
+              "show": [
+                "outcomes"
+              ]
+            },
+            {
+              "say": "Y el bienestar animal sale ganando.",
+              "headline": "Más cuidado.\nMejor bienestar animal.",
+              "show": [
+                "ruler"
+              ]
+            }
           ]
         }
       ]
     },
     {
-      "section": "", "fig": "", "theme": "dark",
+      "section": "",
+      "fig": "",
+      "theme": "dark",
       "scenes": [
         {
           "template": "statement",
-          "transition": { "type": "zoom", "origin": [540, 700] },
+          "transition": {
+            "type": "zoom",
+            "origin": [
+              540,
+              700
+            ]
+          },
           "noSection": true,
-          "data": { "lines": ["La IA no atiende pacientes.", "Te ayuda a atenderlos mejor."], "size": 54, "y": 560 },
-          "beats": [{ "say": "La inteligencia artificial no atiende pacientes. Te ayuda a atenderlos mejor." }]
+          "data": {
+            "lines": [
+              "La IA no atiende pacientes.",
+              "Te ayuda a atenderlos mejor."
+            ],
+            "size": 54,
+            "y": 560
+          },
+          "beats": [
+            {
+              "say": "La inteligencia artificial no atiende pacientes. Te ayuda a atenderlos mejor."
+            }
+          ]
         },
         {
           "template": "logo_end",
-          "transition": { "type": "fade" },
+          "transition": {
+            "type": "fade"
+          },
           "hold": 1.8,
-          "data": { "brand": "IA Fácil", "tagline": "Inteligencia artificial en lenguaje humano.", "url": "" },
-          "beats": [{ "say": "IA Fácil. Inteligencia artificial en lenguaje humano." }]
+          "data": {
+            "brand": "IA Fácil",
+            "tagline": "Inteligencia artificial en lenguaje humano.",
+            "url": ""
+          },
+          "beats": [
+            {
+              "say": "IA Fácil. Inteligencia artificial en lenguaje humano."
+            }
+          ]
         }
       ]
     }

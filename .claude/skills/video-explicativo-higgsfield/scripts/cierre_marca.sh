@@ -2,10 +2,10 @@
 # Añade al final de un video (9:16 o 16:9) un cierre de marca en el estilo "caso de estudio",
 # renderizado con el motor de la skill hermana `video-explicativo`.
 #
-# Uso: cierre_marca.sh entrada.mp4 salida.mp4 "Marca" "Tagline." ["marca.com"] ["Frase de cierre opcional."]
+# Uso: cierre_marca.sh entrada.mp4 salida.mp4 "Marca" "Tagline." ["marca.com"] ["Frase de cierre opcional."] ["logo_empresa.png"]
 set -euo pipefail
 
-IN="$1"; OUT="$2"; BRAND="$3"; TAGLINE="$4"; URL="${5:-}"; STATEMENT="${6:-}"
+IN="$1"; OUT="$2"; BRAND="$3"; TAGLINE="$4"; URL="${5:-}"; STATEMENT="${6:-}"; LOGO="${7:-}"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 SIS="$HERE/../../video-explicativo"
 [ -f "$SIS/scripts/build.py" ] || { echo "Falta la skill hermana video-explicativo en $SIS"; exit 1; }
@@ -25,12 +25,13 @@ if statement:
 scenes.append({"template": "logo_end", "transition": {"type": "fade"} if statement else None,
                "data": {"brand": brand, "tagline": tagline, "url": url}, "beats": [{"dur": 4.2}]})
 scenes = [{k: v for k, v in s.items() if v is not None} for s in scenes]
-json.dump({"meta": {"noChrome": True, "lead": 0}, "chapters": [{"section": "", "theme": "dark", "scenes": scenes}]},
+json.dump({"meta": {"noChrome": True, "lead": 0, "style": "amac"}, "chapters": [{"section": "", "theme": "dark", "scenes": scenes}]},
           open(out, "w"), ensure_ascii=False)
 PY
 
 # 2) renderizar el cierre (4:5, mudo)
-python3 "$SIS/scripts/build.py" "$WORK/cierre.json" --tts none --music none --no-sfx --work "$WORK/w" --out "$WORK/cierre_45.mp4" >/dev/null
+LOGO_ARGS=(); [ -n "$LOGO" ] && LOGO_ARGS=(--logo "$(cd "$(dirname "$LOGO")" && pwd)/$(basename "$LOGO")")
+python3 "$SIS/scripts/build.py" "$WORK/cierre.json" "${LOGO_ARGS[@]}" --tts none --music none --no-sfx --work "$WORK/w" --out "$WORK/cierre_45.mp4" >/dev/null
 
 # 3) adaptar al tamaño del video de entrada (relleno azul marino) y concatenar con fundido
 read -r W H FPS < <(ffprobe -v error -select_streams v:0 -show_entries stream=width,height,r_frame_rate -of csv=p=0 "$IN" | tr ',' ' ')
@@ -39,7 +40,7 @@ HAS_AUDIO=$(ffprobe -v error -select_streams a -show_entries stream=index -of cs
 OFF=$(python3 -c "print(max(0, float('$DUR') - 0.5))")
 
 ffmpeg -y -loglevel error -i "$WORK/cierre_45.mp4" \
-  -vf "scale=${W}:${H}:force_original_aspect_ratio=decrease,pad=${W}:${H}:(ow-iw)/2:(oh-ih)/2:color=#0E1628,fps=${FPS},format=yuv420p,setsar=1" \
+  -vf "scale=${W}:${H}:force_original_aspect_ratio=decrease,pad=${W}:${H}:(ow-iw)/2:(oh-ih)/2:color=#0D1B4B,fps=${FPS},format=yuv420p,setsar=1" \
   -an "$WORK/cierre.mp4"
 CDUR=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$WORK/cierre.mp4")
 

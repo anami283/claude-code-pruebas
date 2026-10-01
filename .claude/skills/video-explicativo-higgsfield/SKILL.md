@@ -1,6 +1,6 @@
 ---
 name: video-explicativo-higgsfield
-description: Genera con Higgsfield (IA generativa de video) un video explicativo narrado en español, de 60-120 s y en 9:16 o 16:9, con el look "caso de estudio / plano técnico" del video de referencia (line-art azul marino, grilla técnica, acento rojo), a partir de CUALQUIER archivo de contenido (PDF, DOCX, PPTX, MD, TXT). Úsala cuando el usuario pida "hazlo con Higgsfield", "video explicativo con IA generativa", "versión Higgsfield del video", "clips animados con IA de este documento", o quiera movimiento de cámara y escenas generadas en lugar de animación por código. Para el render por código, exacto, barato y en 4:5, usa la skill hermana `video-explicativo`.
+description: Genera con Higgsfield (IA generativa de video) un video explicativo narrado en español, de 60-120 s y en 9:16 o 16:9, con el estilo AMAC (brandbook azul marino / oro, fondo 3D con partículas y vidrio) y el logo de la empresa cliente, a partir de CUALQUIER archivo de contenido (PDF, DOCX, PPTX, MD, TXT). Úsala cuando el usuario pida "hazlo con Higgsfield", "video explicativo con IA generativa", "versión Higgsfield del video", "clips animados con IA de este documento", o quiera movimiento de cámara y escenas generadas en lugar de animación por código. Para el render por código, exacto, barato y en 4:5, usa la skill hermana `video-explicativo`.
 ---
 
 # Video explicativo en español con Higgsfield
@@ -41,7 +41,8 @@ Este guion se entrega al flujo de Higgsfield como **guion pegado por el usuario*
 ### 4. Preparar el estilo
 Lee `references/estilo-caso-de-estudio.md`:
 - Sube las 3 imágenes de `assets/estilo/` como referencias de estilo del usuario (≤3, autoritativas). Así el flujo salta la galería y ancla el look del video de referencia. Hay 3 rutas de subida; con la de respaldo se usa el preset "Editorial Motion Graphics".
-- Usa la FÓRMULA de estilo y el negative prompt de ese archivo, byte a byte.
+- Usa la FÓRMULA AMAC (predeterminada) y el negative prompt de ese archivo, byte a byte. La fórmula "caso" solo se usa si la piden.
+- Pide el logo de la empresa cliente: va en el cierre (paso 7), nunca dentro de los prompts.
 
 ### 5. Presupuesto (antes de gastar)
 1. Llama a `balance`.

@@ -29,6 +29,14 @@ def sh(cmd, **kw):
     return r.stdout
 
 
+def logo_data_uri(path):
+    import base64, mimetypes
+    mime = mimetypes.guess_type(str(path))[0] or "image/png"
+    if path.suffix.lower() == ".svg":
+        mime = "image/svg+xml"
+    return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode()
+
+
 def ensure_engine():
     if not (ENGINE / "node_modules" / "playwright-core").exists():
         print("· instalando dependencias del motor (npm)...")
@@ -94,6 +102,8 @@ def main():
     ap.add_argument("--stills", action="store_true", help="sólo genera cuadros de control (1 por beat)")
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--gap", type=float, default=0.28, help="silencio entre frases (s)")
+    ap.add_argument("--logo", default=None, help="logo de la empresa (PNG/JPG/SVG/WEBP); se usa en la apertura, el cierre y la esquina")
+    ap.add_argument("--style", default=None, help="amac (predeterminado, brandbook AMAC) | caso (réplica del video de referencia)")
     ap.add_argument("--list-beats", action="store_true", help="imprime las frases numeradas (para generar audios fuera, p.ej. con el conector MCP de ElevenLabs)")
     a = ap.parse_args()
 
@@ -112,6 +122,20 @@ def main():
         spoken = [TTS.normalize(b["say"]) for b in beats if (b.get("say") or "").strip()]
         print(json.dumps([{"file": f"beat_{i:03d}.mp3", "text": t} for i, t in enumerate(spoken, 1)], ensure_ascii=False, indent=1))
         return
+
+    # estilo y logo de la empresa (se adjunta en cada video)
+    meta = sb.setdefault("meta", {})
+    if a.style:
+        meta["style"] = a.style
+    logo = a.logo or meta.get("logo")
+    if logo:
+        lp = Path(logo)
+        if not lp.is_absolute():
+            lp = (Path.cwd() / lp) if (Path.cwd() / lp).exists() else (sb_path.parent / lp)
+        if not lp.exists():
+            raise SystemExit(f"No encuentro el logo: {logo}")
+        meta["logoData"] = logo_data_uri(lp)
+        print(f"· logo: {lp.name}")
 
     work = Path(a.work or sb_path.parent / (sb_path.stem + "_work")).resolve()
     (work / "audio").mkdir(parents=True, exist_ok=True)

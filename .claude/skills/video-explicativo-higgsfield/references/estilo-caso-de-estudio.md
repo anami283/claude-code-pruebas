@@ -1,4 +1,4 @@
-# Estilo "caso de estudio / plano técnico" para Higgsfield
+# Estilo para Higgsfield: AMAC (predeterminado) y "caso"
 
 Este archivo traduce el ADN visual del video de referencia (ver `../video-explicativo/references/guia-de-estilo.md`) al lenguaje que entienden los modelos generativos de Higgsfield.
 
@@ -17,23 +17,31 @@ En el flujo de Higgsfield son "user uploads (≤3)": son AUTORITATIVAS, se usan 
 
 Guarda los `media_id` confirmados en `work/manifest.json` y reutilízalos en videos siguientes de la misma cuenta (no hace falta subirlas otra vez).
 
-## FÓRMULA DE ESTILO (pégala byte a byte en cada prompt de imagen y de video)
+## FÓRMULA DE ESTILO — AMAC (predeterminada; pégala byte a byte en cada prompt de imagen y de video)
+```
+Premium 3D-dashboard explainer illustration. Deep navy (#0D1B4B) space with a soft radial
+glow, drifting light orbs in electric blue (#2563EB) and violet, a faint connected-particle
+network and a perspective floor grid receding into depth. Clean vector line art with
+silver (#C0C8D8) strokes, translucent glassmorphism panels with luminous edges, simple
+rounded human figures in white and royal blue (#1A3A8F). ONE accent color: executive gold
+(#C9A84C) for highlights, ID cards and connecting lines. Smooth cinematic camera drift,
+subtle depth and parallax. Elegant, modern, optimistic. No text, no letters, no numbers, no logos.
+```
+**PALETTE LOCK (brandbook AMAC)**: navy `#0D1B4B`, royal `#1A3A8F`, electric blue `#2563EB`, gold `#C9A84C`, silver `#C0C8D8`, blue-white `#F4F6FB`.
+
+### Fórmula alternativa — "caso" (réplica del video de referencia)
 ```
 Minimal technical-blueprint explainer illustration. Clean vector line art with uniform 3px
 dark navy (#141B30) strokes, flat fills only (white, off-white #F5F6FA, deep navy #0E1628),
 no gradients, no textures, no shadows. A faint square engineering grid covers every
-background. Simple rounded human figures drawn as outlines with solid navy hair and plain
-white or navy clothes, calm neutral faces. Architectural props: doors, service counters,
-panels, server racks, isometric blocks. ONE accent color only: signal red (#E5202B), used
-sparingly for alerts, ID cards and connecting lines. Wide negative space, centered
-orthographic compositions, a thin horizontal floor line. Precise, editorial, documentary
-calm. No text, no letters, no numbers, no logos.
+background. Simple rounded human figures drawn as outlines. ONE accent color only: signal
+red (#E5202B). Wide negative space, centered orthographic compositions. No text, no letters, no numbers, no logos.
 ```
-(Son 104 palabras. Si el flujo exige 80-100, quita "calm neutral faces" y "Precise, editorial, documentary calm".)
 
-**PALETTE LOCK**: navy `#141B30` / `#0E1628`, off-white `#F5F6FA`, blanco, acento rojo `#E5202B`. Ningún otro color.
+**Negative prompt** (style key, assets y bloques): `text, letters, captions, numbers, logo, watermark, photorealistic, color palette strip, swatches, labels, reference sheet, multiple accent colors`.
 
-**Negative prompt** (en el style key, los assets y los bloques): `text, letters, captions, numbers, logo, watermark, gradient, 3D render, photorealistic, color palette strip, swatches, labels, reference sheet, busy background, multiple accent colors`.
+## Logo de la empresa
+El logo de la empresa cliente se adjunta en cada video: Ana Milena facilita para diferentes empresas. NO lo metas en los prompts de generación, porque los modelos deforman los logos. Agrégalo después con `scripts/cierre_marca.sh`, que pone el logo en el cierre (`--logo`).
 
 ## Traducción del lenguaje visual a tomas (para los bloques de 10 s)
 | Recurso del video de referencia | Cómo pedirlo en un SHOT |
