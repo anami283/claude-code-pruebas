@@ -1,0 +1,631 @@
+{
+  "meta": {
+    "title": "Caso de estudio: una sola puerta",
+    "kicker": "Caso de estudio · Rumania",
+    "brandUrl": "arxia.com",
+    "voice": {
+      "elevenlabs_voice_id": "",
+      "piper_voice": "es_MX-claude-high"
+    },
+    "music": {
+      "mood": "tech",
+      "bpm": 96
+    },
+    "style": "caso"
+  },
+  "chapters": [
+    {
+      "section": "Puertas abiertas",
+      "fig": "La frontera",
+      "theme": "dark",
+      "scenes": [
+        {
+          "template": "hero_split",
+          "data": {
+            "left": {
+              "colors": [
+                "#0057B7",
+                "#FFD700"
+              ],
+              "dir": "h",
+              "label": "Ucrania"
+            },
+            "right": {
+              "colors": [
+                "#002B7F",
+                "#FCD116",
+                "#CE1126"
+              ],
+              "dir": "v",
+              "label": "Rumania"
+            },
+            "walkers": 2
+          },
+          "show": [
+            "emblems",
+            "divider"
+          ],
+          "beats": [
+            {
+              "say": "Tras la invasión a gran escala de Ucrania,",
+              "show": [
+                "people"
+              ]
+            },
+            {
+              "say": "Rumania abrió sus puertas.",
+              "show": [
+                "door",
+                "crowd"
+              ]
+            },
+            {
+              "say": "Pero quienes llegaban",
+              "set": {
+                "doorOpen": 0.15
+              }
+            },
+            {
+              "say": "pronto encontraron una segunda frontera.",
+              "headline": "Una segunda frontera.",
+              "show": [
+                "wall"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "La segunda frontera",
+      "fig": "Atención fragmentada",
+      "theme": "light",
+      "scenes": [
+        {
+          "template": "panels",
+          "transition": {
+            "type": "zoom",
+            "origin": [
+              635,
+              1000
+            ]
+          },
+          "data": {
+            "panels": [
+              {
+                "title": "Protección social",
+                "subtitle": "Asistență socială",
+                "form": "Cerere",
+                "sys": "SIS·1",
+                "label": "Subsidios"
+              },
+              {
+                "title": "Educación",
+                "subtitle": "Educație",
+                "form": "Form. B",
+                "sys": "SIS·2",
+                "label": "Cupos"
+              },
+              {
+                "title": "Empleo",
+                "subtitle": "Ocupare",
+                "form": "Anexo 3",
+                "sys": "SIS·3",
+                "label": "Empleos"
+              }
+            ]
+          },
+          "show": [
+            "panels"
+          ],
+          "beats": [
+            {
+              "say": "Subsidios, escuelas y empleo",
+              "show": [
+                "person"
+              ]
+            },
+            {
+              "say": "dependían de tres instituciones distintas,",
+              "headline": "3 instituciones."
+            },
+            {
+              "say": "cada una con su propio proceso,",
+              "show": [
+                "process"
+              ],
+              "tags": [
+                "Proceso propio"
+              ]
+            },
+            {
+              "say": "sus formularios y su sistema,",
+              "show": [
+                "forms",
+                "systems"
+              ],
+              "tags": [
+                "Proceso propio",
+                "Formularios propios",
+                "Sistema propio"
+              ]
+            },
+            {
+              "say": "y cada formulario, en rumano.",
+              "headline": "3 instituciones.\n0 datos compartidos.",
+              "show": [
+                "broken"
+              ],
+              "tags": [
+                "Proceso propio",
+                "Formularios propios",
+                "Sistema propio"
+              ]
+            },
+            {
+              "say": "Las familias contaban la misma historia",
+              "headline": "La misma historia.",
+              "tags": [
+                "!× 1"
+              ],
+              "show": [
+                "alerts"
+              ],
+              "set": {
+                "personAt": 1
+              }
+            },
+            {
+              "say": "una y otra vez.",
+              "tags": [
+                "!× 3"
+              ],
+              "set": {
+                "personAt": 2
+              },
+              "show": [
+                "redline"
+              ]
+            },
+            {
+              "say": "La ayuda existía.",
+              "show": [
+                "labels"
+              ]
+            },
+            {
+              "say": "Pero la gente no podía alcanzarla.",
+              "headline": "Fuera de alcance.",
+              "hide": [
+                "person"
+              ],
+              "show": [
+                "outofreach"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "La necesidad",
+      "fig": "Una puerta, dibujada",
+      "theme": "dark",
+      "scenes": [
+        {
+          "template": "blueprint",
+          "transition": {
+            "type": "fade"
+          },
+          "data": {
+            "checks": [
+              "Registrarse una vez.",
+              "Todos los servicios.",
+              "En su propio idioma."
+            ],
+            "dimLabel": "1 puerta",
+            "note": "diseñada, aún no construida"
+          },
+          "show": [
+            "ghosts"
+          ],
+          "beats": [
+            {
+              "say": "Rumania necesitaba una sola puerta."
+            },
+            {
+              "say": "Registrarse una vez. Acceder a todo.",
+              "show": [
+                "door",
+                "dims",
+                "c0",
+                "c1"
+              ]
+            },
+            {
+              "say": "En su propio idioma.",
+              "show": [
+                "c2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Juntos",
+      "fig": "Co-diseño con el personal de primera línea",
+      "theme": "light",
+      "scenes": [
+        {
+          "template": "team_board",
+          "transition": {
+            "type": "wipe_up"
+          },
+          "data": {
+            "board": "Recorrido del servicio · hoy → mañana",
+            "labelA": "Instituciones de Rumania",
+            "labelB": "Arxia",
+            "laptop": "software"
+          },
+          "show": [
+            "board"
+          ],
+          "beats": [
+            {
+              "say": "En un programa financiado por el Banco Mundial,",
+              "headline": "",
+              "tags": [
+                "Programa del Banco Mundial"
+              ],
+              "show": [
+                "groupA"
+              ]
+            },
+            {
+              "say": "Arxia trabajó con las instituciones rumanas.",
+              "headline": "Construido en equipo.",
+              "tags": [
+                "Programa del Banco Mundial"
+              ],
+              "show": [
+                "notes",
+                "groupB"
+              ]
+            },
+            {
+              "say": "Empezamos por los procesos,",
+              "tags": [
+                "Programa del Banco Mundial"
+              ]
+            },
+            {
+              "say": "no por el software.",
+              "headline": "Primero los procesos.\nDespués el software.",
+              "tags": [
+                "Programa del Banco Mundial"
+              ],
+              "show": [
+                "screen"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Cómo lo hicimos",
+      "fig": "Una puerta de entrada inclusiva",
+      "theme": "dark",
+      "scenes": [
+        {
+          "template": "iso_hub",
+          "transition": {
+            "type": "wipe_up"
+          },
+          "data": {
+            "tabs": [
+              "Rediseño",
+              "Registro único",
+              "Una puerta",
+              "Traducción IA"
+            ],
+            "tiles": [
+              "Protección social",
+              "Educación",
+              "Empleo"
+            ],
+            "accountLabel": "Una cuenta"
+          },
+          "show": [
+            "tabs",
+            "tiles"
+          ],
+          "beats": [
+            {
+              "say": "Rediseñamos cada recorrido",
+              "headline": "Recorridos, rediseñados.",
+              "show": [
+                "maze"
+              ],
+              "set": {
+                "tab": 0
+              }
+            },
+            {
+              "say": "Las personas se registran una sola vez,",
+              "headline": "Registro único.",
+              "show": [
+                "person",
+                "badge"
+              ],
+              "set": {
+                "tab": 1
+              }
+            },
+            {
+              "say": "y sus datos se reutilizan de forma segura.",
+              "show": [
+                "secure"
+              ]
+            },
+            {
+              "say": "Una sola puerta abre todos los servicios.",
+              "headline": "Una sola puerta.",
+              "show": [
+                "links",
+                "door",
+                "checks",
+                "account"
+              ],
+              "set": {
+                "tab": 2
+              }
+            }
+          ]
+        },
+        {
+          "template": "phone_ui",
+          "theme": "light",
+          "transition": {
+            "type": "slide_left"
+          },
+          "data": {
+            "forms": [
+              {
+                "chip": "UA",
+                "title": "Реєстрація",
+                "subtitle": "Вітаємо",
+                "fields": [
+                  "Повне ім'я",
+                  "Дата народження",
+                  "Домогосподарство"
+                ],
+                "cta": "Далі"
+              },
+              {
+                "chip": "RO",
+                "title": "Înregistrare",
+                "subtitle": "Bun venit",
+                "fields": [
+                  "Nume complet",
+                  "Data nașterii",
+                  "Gospodărie"
+                ],
+                "cta": "Continuă"
+              },
+              {
+                "chip": "ES",
+                "title": "Registro",
+                "subtitle": "Bienvenida",
+                "fields": [
+                  "Nombre completo",
+                  "Fecha de nacimiento",
+                  "Hogar"
+                ],
+                "cta": "Continuar"
+              }
+            ],
+            "aiLabel": "Capa de traducción con IA"
+          },
+          "show": [
+            "phone",
+            "character"
+          ],
+          "beats": [
+            {
+              "say": "en ucraniano, rumano o español,",
+              "headline": "En su idioma.",
+              "set": {
+                "lang": 0
+              }
+            },
+            {
+              "say": "gracias a una capa de traducción con inteligencia artificial.",
+              "show": [
+                "ai"
+              ],
+              "set": {
+                "lang": 2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "El resultado",
+      "fig": "Resultados",
+      "theme": "light",
+      "scenes": [
+        {
+          "template": "stats",
+          "transition": {
+            "type": "wipe_up"
+          },
+          "data": {
+            "stats": [
+              {
+                "value": "3",
+                "label": "Servicios"
+              },
+              {
+                "value": "1",
+                "label": "Cuenta"
+              },
+              {
+                "value": "3",
+                "label": "Idiomas"
+              }
+            ],
+            "panels": [
+              {
+                "title": "Subsidio aprobado",
+                "chip": "UA",
+                "icon": "check",
+                "text": "Ayuda económica sin repetir trámites"
+              },
+              {
+                "title": "Cupo escolar",
+                "chip": "RO",
+                "icon": "school",
+                "text": "Niños matriculados más rápido"
+              },
+              {
+                "title": "Empleo",
+                "chip": "ES",
+                "icon": "briefcase",
+                "text": "Vacantes en su idioma"
+              }
+            ]
+          },
+          "beats": [
+            {
+              "say": "Tres servicios. Una cuenta.",
+              "show": [
+                "s0",
+                "s1",
+                "panels"
+              ]
+            },
+            {
+              "say": "Tres idiomas.",
+              "show": [
+                "s2",
+                "bus"
+              ]
+            },
+            {
+              "say": "Una respuesta que la Unión Europea citó como referencia.",
+              "tags": [
+                "Citado por la UE como referencia"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Por qué importa",
+      "fig": "El patrón de la puerta única",
+      "theme": "dark",
+      "scenes": [
+        {
+          "template": "network",
+          "transition": {
+            "type": "wipe_up"
+          },
+          "data": {
+            "actors": [
+              "Ciudadano",
+              "Refugiado",
+              "Gestor de ONG"
+            ],
+            "doorLabel": "Una cuenta + traducción IA",
+            "outcomes": [
+              "Subsidios",
+              "Escuelas",
+              "Empleo"
+            ],
+            "rulerLabel": "Capacidad instalada"
+          },
+          "show": [
+            "actors"
+          ],
+          "beats": [
+            {
+              "say": "La interoperabilidad convierte una respuesta de crisis",
+              "show": [
+                "links",
+                "door"
+              ]
+            },
+            {
+              "say": "en capacidad instalada,",
+              "headline": "Capacidad instalada.",
+              "show": [
+                "outcomes"
+              ]
+            },
+            {
+              "say": "lista para la próxima llegada.",
+              "headline": "Capacidad instalada.\nLista para la próxima llegada.",
+              "show": [
+                "ruler"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "",
+      "fig": "",
+      "theme": "dark",
+      "scenes": [
+        {
+          "template": "statement",
+          "transition": {
+            "type": "zoom",
+            "origin": [
+              540,
+              700
+            ]
+          },
+          "noSection": true,
+          "data": {
+            "lines": [
+              "Apliquemos este patrón",
+              "en tu país."
+            ],
+            "size": 56,
+            "y": 560
+          },
+          "beats": [
+            {
+              "say": "Apliquemos este patrón en tu país."
+            }
+          ]
+        },
+        {
+          "template": "logo_end",
+          "transition": {
+            "type": "fade"
+          },
+          "hold": 1.8,
+          "data": {
+            "brand": "arxia",
+            "tagline": "Tecnología para transformar naciones.",
+            "url": "arxia.com"
+          },
+          "beats": [
+            {
+              "say": "Arxia. Tecnología para transformar naciones.",
+              "caption": "Arxia. Tecnología para transformar naciones."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
