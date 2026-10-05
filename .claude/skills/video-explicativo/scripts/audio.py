@@ -137,7 +137,7 @@ def generate_sfx(tl, out):
     for s in tl["scenes"]:
         tr = (s.get("transition") or {}).get("type")
         st = int(s["start"] * SR)
-        if tr in ("zoom", "wipe_up", "push_up", "slide_left", "wipe_left"):
+        if tr in ("zoom", "wipe_up", "push_up", "slide_left", "wipe_left", "whip", "pan", "pan_up", "zoom_in"):
             L = int(0.7 * SR)
             noise = rng.standard_normal(L).astype(np.float32)
             env = np.sin(np.linspace(0, np.pi, L)) ** 2

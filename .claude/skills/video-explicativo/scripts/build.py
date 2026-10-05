@@ -103,12 +103,14 @@ def main():
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--gap", type=float, default=0.28, help="silencio entre frases (s)")
     ap.add_argument("--logo", default=None, help="logo de la empresa (PNG/JPG/SVG/WEBP); se usa en la apertura, el cierre y la esquina")
-    ap.add_argument("--style", default=None, help="amac (predeterminado, brandbook AMAC) | caso (réplica del video de referencia)")
+    ap.add_argument("--style", default=None, help="amac (predeterminado, 4:5) | caso (4:5, réplica del video de referencia) | datos (16:9, periodismo de datos con bolitas)")
     ap.add_argument("--list-beats", action="store_true", help="imprime las frases numeradas (para generar audios fuera, p.ej. con el conector MCP de ElevenLabs)")
     a = ap.parse_args()
 
     sb_path = Path(a.storyboard).resolve()
     sb = json.loads(sb_path.read_text(encoding="utf-8"))
+    if a.style:  # el estilo define qué plantillas valen, así que se aplica antes de validar
+        sb.setdefault("meta", {})["style"] = a.style
     errs, warns = validate(sb)
     for w in warns:
         print("  aviso:", w)

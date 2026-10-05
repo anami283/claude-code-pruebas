@@ -1,0 +1,204 @@
+{
+  "meta": {
+    "style": "datos",
+    "voice": { "elevenlabs_voice_id": "yfUfwZTRubVrsUZWqzwp" },
+    "music": { "mood": "calido", "bpm": 92 },
+    "captionWords": 9,
+    "lead": 0.4
+  },
+  "chapters": [
+    {
+      "section": "Apertura",
+      "scenes": [
+        {
+          "template": "titulo",
+          "data": {
+            "title": "la IA en las pymes",
+            "sub": "qué cambia cuando el equipo\nla usa todos los días",
+            "tag": "cifras ilustrativas",
+            "char": { "color": "naranja", "acc": ["casco"] },
+            "props": [{ "type": "edificio", "x": 1700, "w": 260, "h": 380, "shop": "TIENDA" }]
+          },
+          "beats": [
+            { "say": "Hablemos de lo que pasa cuando una pyme empieza a usar inteligencia artificial." },
+            { "say": "No en teoría: en el trabajo de todos los días." }
+          ]
+        },
+        {
+          "template": "linea",
+          "transition": { "type": "whip" },
+          "fuente": "Índice 2019 = 100. Cifras ilustrativas para la demo.",
+          "data": {
+            "years": [2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            "min": 100, "max": 190,
+            "series": [
+              { "label": "tareas manuales", "color": "rojo", "values": [100, 112, 125, 138, 152, 170, 186], "end": "+86%" },
+              { "label": "personas en el equipo", "color": "azul", "values": [100, 101, 103, 104, 106, 107, 108], "end": "+8%" }
+            ],
+            "walker": { "color": "amarillo", "face": "preocupado" }
+          },
+          "beats": [
+            { "say": "Mientras el trabajo manual crecía casi un noventa por ciento,", "show": ["s0"] },
+            { "say": "los equipos apenas crecieron un ocho.", "show": ["s1"] }
+          ]
+        },
+        {
+          "template": "fila",
+          "transition": { "type": "pan" },
+          "data": { "n": 9, "building": { "sign": "PENDIENTES", "shop": "OFICINA" } },
+          "beats": [
+            { "say": "Resultado: una fila de pendientes que no se mueve.", "headline": "todo el mundo quieto" },
+            { "say": "Hasta que algo cambia.", "set": { "advance": 2 }, "headline": "*la fila se mueve" }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Los datos",
+      "scenes": [
+        {
+          "template": "cifra",
+          "transition": { "type": "whip" },
+          "data": {
+            "value": "3,4",
+            "label": "horas libres por semana\npor cada persona",
+            "tag": "con asistentes de IA",
+            "side": { "type": "unidades", "n": 600, "cols": 30, "legend": "1 punto = 1 hora recuperada al mes en un equipo de 40" }
+          },
+          "beats": [
+            { "say": "Con asistentes de IA, cada persona recupera unas tres horas por semana." },
+            { "say": "En un equipo de cuarenta, son seiscientas horas al mes." }
+          ]
+        },
+        {
+          "template": "unidades",
+          "transition": { "type": "pan" },
+          "data": {
+            "value": "38%",
+            "valueLabel": "ya usa IA\ncada semana",
+            "groups": [
+              { "label": "pymes encuestadas", "n": 100, "cols": 10, "highlight": 0.38, "hcolor": "rojo" },
+              { "label": "hace dos años", "n": 100, "cols": 10, "highlight": 0.09, "hcolor": "rojo" }
+            ],
+            "legend": "1 bolita = 1 de cada 100 pymes. Cifras ilustrativas."
+          },
+          "beats": [
+            { "say": "Hoy, casi cuatro de cada diez pymes la usan cada semana." },
+            { "say": "Hace dos años no llegaban a una de cada diez." }
+          ]
+        },
+        {
+          "template": "barras",
+          "transition": { "type": "pan" },
+          "data": {
+            "title": "solicitudes atendidas por día",
+            "bars": [
+              { "label": "ene", "value": 40 }, { "label": "feb", "value": 42 }, { "label": "mar", "value": 47 },
+              { "label": "abr", "value": 55 }, { "label": "may", "value": 68 }, { "label": "jun", "value": 82 },
+              { "label": "jul", "value": 96, "tag": "+140%" }
+            ],
+            "color": "verde",
+            "climber": { "color": "azul", "face": "feliz", "acc": ["gafas"] }
+          },
+          "beats": [
+            { "say": "Y la atención al cliente se dispara: más del doble de solicitudes resueltas." }
+          ]
+        },
+        {
+          "template": "monedas",
+          "transition": { "type": "pan" },
+          "data": {
+            "year": "2025", "place": "por proceso",
+            "value": "-62%", "valueLabel": "de costo en tareas\nrepetitivas",
+            "stacks": [
+              { "label": "antes", "value": 100, "color": "rojo", "face": "preocupado" },
+              { "label": "con IA", "value": 38, "color": "verde", "face": "feliz" }
+            ]
+          },
+          "beats": [
+            { "say": "El costo de las tareas repetitivas baja más de la mitad." }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "El camino",
+      "scenes": [
+        {
+          "template": "comparacion",
+          "transition": { "type": "whip" },
+          "data": {
+            "title": "dos formas de empezar",
+            "left": { "label": "comprar licencias", "tag": "sin plan", "chars": [{ "color": "gris", "face": "preocupado", "acc": ["gafas"] }, { "x": 300, "color": "morado", "face": "dormido" }], "props": [{ "type": "casa", "x": 560, "s": 0.8, "roof": "#8DB8F0" }] },
+            "right": { "label": "formar al equipo", "chars": [{ "color": "naranja", "face": "feliz", "acc": ["casco"] }, { "x": 290, "color": "verde", "face": "feliz", "arms": "wave" }, { "x": 450, "color": "azul", "face": "feliz", "acc": ["gorra"] }] }
+          },
+          "beats": [
+            { "say": "Hay dos formas de empezar: comprar licencias y esperar,", "show": ["left"] },
+            { "say": "o formar al equipo para que la use con criterio.", "show": ["right"] }
+          ]
+        },
+        {
+          "template": "puntos",
+          "transition": { "type": "pan" },
+          "data": {
+            "title": "tres pasos",
+            "items": [
+              { "title": "elegir un proceso", "text": "uno que duela y se repita" },
+              { "title": "probar en pequeño", "text": "dos semanas, con métricas" },
+              { "title": "escalar lo que funciona", "text": "y documentarlo" }
+            ],
+            "char": { "x": 1480, "color": "amarillo", "face": "feliz", "arms": "point" },
+            "props": [{ "type": "letrero", "x": 1250, "text": "por aquí" }]
+          },
+          "beats": [
+            { "say": "Tres pasos: elegir un proceso que duela,", "show": ["i0"] },
+            { "say": "probarlo en pequeño,", "show": ["i1"] },
+            { "say": "y escalar lo que funciona.", "show": ["i2"] }
+          ]
+        },
+        {
+          "template": "linea_tiempo",
+          "transition": { "type": "pan" },
+          "data": { "from": 2025, "to": 2031, "label": "6 meses", "sub": "del piloto a toda la empresa", "title": "al ritmo de un proceso por mes", "char": { "color": "naranja", "acc": ["casco"] }, "walkDur": 3.6 },
+          "beats": [
+            { "say": "A un proceso por mes, en medio año la empresa entera trabaja distinto." }
+          ]
+        },
+        {
+          "template": "escena",
+          "transition": { "type": "whip" },
+          "data": {
+            "zones": [{ "x": 0, "y": 560, "w": 1920, "h": 300 }],
+            "props": [{ "type": "paraguas", "x": 960, "w": 620 }, { "type": "casa", "x": 300, "s": 1.1, "roof": "#3DBE7A" }, { "type": "edificio", "x": 1650, "w": 240, "h": 360 }],
+            "chars": [
+              { "x": 760, "color": "rojo", "face": "feliz", "acc": ["caja"] },
+              { "x": 900, "color": "azul", "face": "feliz", "from": -100 },
+              { "x": 1040, "color": "verde", "face": "feliz", "acc": ["audifonos"] },
+              { "x": 1180, "color": "blanco", "face": "guino", "acc": ["corbata"] }
+            ],
+            "labels": [{ "x": 110, "y": 160, "text": "IA para todos", "kind": "mark", "size": 80 }, { "x": 130, "y": 250, "text": "con reglas claras" }]
+          },
+          "beats": [
+            { "say": "La clave es que llegue a todos, con reglas claras." }
+          ]
+        },
+        {
+          "template": "frase",
+          "transition": { "type": "pan" },
+          "data": { "text": "la IA hace el borrador,\ntú pones el *criterio*", "size": 84, "y": 420 },
+          "beats": [
+            { "say": "Porque la IA hace el borrador. Pero el criterio lo pones tú." }
+          ]
+        },
+        {
+          "template": "cierre",
+          "transition": { "type": "fade" },
+          "data": { "title": "IA fácil", "tagline": "Ana Milena Alonso Cantor", "url": "facilitadora de adopción de IA" },
+          "beats": [
+            { "say": "Hablemos de cómo empezar en tu equipo." }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,15 +1,24 @@
 ---
 name: video-explicativo
-description: Genera videos explicativos animados en español (MP4 4:5, 60-95 s) con el estilo AMAC de Ana Milena Alonso Cantor (brandbook azul marino / oro, Poppins, fondo 3D con partículas, paneles de vidrio, cámara en movimiento, transiciones 3D) y el logo de la empresa cliente adjuntado en cada video, a partir de CUALQUIER archivo de contenido (PDF, DOCX, PPTX, MD, TXT, HTML). Incluye además el estilo "caso" (réplica del video de referencia). Úsala cuando el usuario pida "hazme un video explicativo", "convierte este documento en video", "video animado de este caso", "explainer", "video tipo caso de estudio", "video para LinkedIn que explique esto", o adjunte un archivo pidiendo un video que lo explique.
+description: Genera videos explicativos animados en español a partir de CUALQUIER archivo de contenido (PDF, DOCX, PPTX, MD, TXT, HTML), con varias opciones de formato. 1) AMAC (4:5, 60-95 s, brandbook azul marino / oro, fondo 3D, transiciones 3D y logo de la empresa cliente). 2) Caso (4:5, réplica del video de referencia). 3) Datos con bolitas (16:9, periodismo de datos dibujado a mano con personajes bolita, gráficos de unidades, líneas, barras, filas, monedas y líneas de tiempo). 4) Intro de marca con personaje (GSAP, 16:9, 40 s, con narración). Úsala cuando el usuario pida "hazme un video explicativo", "convierte este documento en video", "video animado de este caso", "explainer", "video tipo caso de estudio", "video para LinkedIn que explique esto", o adjunte un archivo pidiendo un video que lo explique. También cuando pida "video con datos", "explica estas cifras", "estilo periodismo de datos", "video con bolitas", "intro animada para mi clase" o "apertura con personaje".
 ---
 
-# Video explicativo en español (estilo AMAC)
+# Video explicativo en español (varias opciones de formato)
 
 Convierte un archivo de contenido en un video animado MP4 con la narrativa de 8 capítulos del video de referencia, pero con la identidad visual AMAC: paleta del brandbook, Poppins, fondo con profundidad y partículas, paneles de vidrio, cámara 3D, franja dorada y transiciones 3D. Todo va con subtítulos, voz en off y música ambiental. **El logo de la empresa para la que Ana Milena facilita se adjunta en cada video** (`--logo`).
 
-Estilos disponibles:
-- `amac`: el predeterminado. Ver `references/estilo-amac.md`.
-- `caso`: réplica fiel del video de referencia. Ver `references/guia-de-estilo.md`. El render es 100 % por código (HTML/SVG + Playwright + ffmpeg): es reproducible, rápido (unos 2 min por video) y no consume créditos de generación de video.
+## Opciones: elige según el contenido y el canal
+Pregunta al inicio qué opción quiere si no está claro. Si el usuario no elige, recomienda según el contenido:
+
+| # | Opción | Formato | Ideal para | Cómo se activa | Guía |
+|---|---|---|---|---|---|
+| 1 | **AMAC** (predeterminada) | 4:5 · 60-95 s | LinkedIn/Instagram, casos y propuestas con la marca AMAC y el logo del cliente | `--style amac` | `references/estilo-amac.md` |
+| 2 | **Caso** | 4:5 · 60-95 s | Caso de estudio sobrio, réplica del video de referencia | `--style caso` | `references/guia-de-estilo.md` |
+| 3 | **Datos con bolitas** | 16:9 · 90 s a 7 min | Informes, encuestas, diagnósticos, resultados: contenido con cifras contado con personajes | `--style datos` | `references/estilo-datos.md` |
+| 4 | **Intro de marca con personaje** | 16:9 · 40 s | Abrir una clase, un taller o un evento con una protagonista, voz y título | carpeta `intro-marca/` (GSAP) | `intro-marca/README.md` |
+| 5 | **Higgsfield** | 9:16 o 16:9 | Escenas generadas con IA y movimiento de cámara real (gasta créditos) | skill `video-explicativo-higgsfield` | su SKILL.md |
+
+Las opciones 1 a 3 comparten el mismo flujo: storyboard JSON → `build.py`, con voz, música, subtítulos y control de calidad. Solo cambian el estilo y las plantillas. El render es 100 % por código (HTML/SVG + Playwright + ffmpeg): reproducible, unos 2-5 min por video, sin créditos de generación de video. La opción 4 es una composición GSAP editable; se adapta siguiendo su README.
 
 Rutas relativas a esta carpeta (`.claude/skills/video-explicativo/`).
 
@@ -38,7 +47,9 @@ Lee, EN ESTE ORDEN:
 2. `references/plantillas.md`: formato JSON, capas y datos de cada plantilla.
 3. `references/estilo-amac.md`: el estilo AMAC, el logo por empresa y la escena `intro`. Para el estilo "caso", `references/guia-de-estilo.md`.
 
-Usa como modelo `examples/ia_veterinaria_amac.json` (estilo AMAC con intro y logo), `examples/demo_ia_pymes.json` (contenido genérico) y `examples/caso_rumania.json` (recreación fiel del video de referencia). Guarda el resultado como `<nombre>.json` junto al archivo del usuario o en la carpeta de trabajo.
+**Si es la opción 3 (datos con bolitas)**, en lugar de los puntos 2 y 3 lee `references/estilo-datos.md`: estructura narrativa, reglas y sus 13 plantillas propias (titulo, cifra, unidades, linea, barras, fila, monedas, linea_tiempo, puntos, comparacion, frase, escena, cierre). Pon `"style": "datos"` en `meta`. Modelo: `examples/demo_datos_bolitas.json`. En este estilo la regla de 140-230 palabras se relaja según la duración elegida.
+
+Usa como modelo (opciones 1 y 2) `examples/ia_veterinaria_amac.json` (estilo AMAC con intro y logo), `examples/demo_ia_pymes.json` (contenido genérico) y `examples/caso_rumania.json` (recreación fiel del video de referencia). Guarda el resultado como `<nombre>.json` junto al archivo del usuario o en la carpeta de trabajo.
 
 Reglas que no se negocian:
 - De 140 a 230 palabras de voz, con frases de 4 a 12 palabras. Cada frase produce un cambio visual.
@@ -63,7 +74,7 @@ Abre `<storyboard>_work/contact_sheet.jpg` (un cuadro por frase) y revisa que no
 | **B. Conector MCP de ElevenLabs** | No hay API key, pero existen las herramientas `mcp__ElevenLabs__*` | Ver el procedimiento abajo; después, `--tts dir:<carpeta>` |
 | **C. Piper offline** | Sin ElevenLabs | `--tts piper` (voz neuronal local; baja una voz en español de HuggingFace y, si no puede, usa una de respaldo desde GitHub) |
 
-Voz por defecto recomendada: **"Carlos – Clear and authoritative"** (`hVvlnh6pB9hT91DI7dXN`), masculina, español latino neutro, tono documental como el de la referencia. Si el usuario tiene una voz propia o clonada, usa su `voice_id`. Para elegir otra, usa `creative_list_voices` con `languages:["es"]` y `use_cases:["informative_educational"]`.
+Voz por defecto recomendada: **"Carlos – Clear and authoritative"** (`hVvlnh6pB9hT91DI7dXN`), masculina, español latino neutro, tono documental como el de la referencia. Voz femenina colombiana (acento paisa, cálida, educativa): **"Lina – Colombian Warm & Confident"** (`yfUfwZTRubVrsUZWqzwp`). Si el usuario tiene una voz propia o clonada, usa su `voice_id`. Para elegir otra, usa `creative_list_voices` con `languages:["es"]` y `use_cases:["informative_educational"]`.
 
 **Procedimiento B (conector MCP):**
 1. `python3 scripts/build.py <sb>.json --list-beats > beats.json`
@@ -74,7 +85,7 @@ Voz por defecto recomendada: **"Carlos – Clear and authoritative"** (`hVvlnh6p
 
 ### 5. Renderizar el video final
 ```bash
-python3 scripts/build.py <sb>.json --tts <opción> --logo <logo_empresa.png> --out <salida>.mp4 [--style amac|caso] [--workers 4] [--music auto|none|pista.mp3] [--no-sfx]
+python3 scripts/build.py <sb>.json --tts <opción> --logo <logo_empresa.png> --out <salida>.mp4 [--style amac|caso|datos] [--workers 4] [--music auto|none|pista.mp3] [--no-sfx]
 ```
 El comando hace todo esto:
 - Arma la línea de tiempo según la duración real de cada frase.
@@ -90,9 +101,11 @@ El comando hace todo esto:
 
 ## Ajustes frecuentes
 - **Más rápido o más lento**: `meta.voice.speed` (ElevenLabs, 0.9-1.1), `--gap 0.2` para menos pausa entre frases, o `pause` en un beat puntual.
-- **Formato 9:16 o 16:9**: el motor está diseñado para 4:5. Para Reels, renderiza en 4:5 y encuadra con `ffmpeg -vf "pad=1080:1920:0:285:color=#0E1628"`.
+- **Formato 16:9**: usa la opción 3 (`--style datos`, nativa en 1920×1080) o la 4 (intro de marca).
+- **Formato 9:16**: las opciones 1 y 2 están diseñadas para 4:5. Para Reels, renderiza en 4:5 y encuadra con `ffmpeg -vf "pad=1080:1920:0:285:color=#0E1628"`.
+- **Datos con la marca del cliente**: `meta.accent` cambia el color del marcador y `--logo` pone el logo en la esquina y en el `cierre`.
 - **Otra empresa**: cambia `--logo`, `meta.kicker` y los textos de `intro`/`logo_end`. El estilo AMAC se mantiene. Las paletas están en `engine/figures.js` (`STYLES`).
-- **Nueva plantilla**: agrégala en `engine/templates.js` (devuelve SVG a partir de `ctx`) y regístrala en `scripts/validate.py`.
+- **Nueva plantilla**: agrégala en `engine/templates.js` (o en `engine/datos/templates.js` para el estilo de datos; devuelve SVG a partir de `ctx`) y regístrala en `scripts/validate.py`.
 
 ## Límites (dilos con honestidad si aplican)
 - Los personajes son figuras de línea más simples que las ilustraciones hechas a mano del video original. El estilo, la composición, la tipografía, el ritmo y las transiciones sí se replican fielmente.

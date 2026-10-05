@@ -22,11 +22,31 @@ TEMPLATES = {
     "quote": {"layers": set(), "set": set()},
     "persona": {"layers": {"person", "items", "i0", "i1", "i2", "i3"}, "set": set()},
 }
+# estilo "datos con bolitas" (16:9): capas automáticas salvo que se declaren con "show"
+DATOS_TEMPLATES = {
+    "titulo": {"layers": {"zone", "title", "sub", "props", "chars"}, "set": set()},
+    "cifra": {"layers": {"value", "label", "tag", "side", "chars"}, "set": set()},
+    "unidades": {"layers": {"units", "highlight", "value"}, "set": set()},
+    "linea": {"layers": {"axes", "s0", "s1", "s2", "s3"}, "set": set()},
+    "barras": {"layers": {"bars"}, "set": set()},
+    "fila": {"layers": {"queue", "building"}, "set": {"advance"}},
+    "monedas": {"layers": {"value", "stacks"}, "set": set()},
+    "linea_tiempo": {"layers": {"walk", "label", "title", "extra"}, "set": set()},
+    "puntos": {"layers": {"title", "i0", "i1", "i2", "i3", "i4", "props", "chars"}, "set": {"focus"}},
+    "comparacion": {"layers": {"title", "left", "right"}, "set": set()},
+    "frase": {"layers": {"text", "props", "chars"}, "set": set()},
+    "escena": {"layers": {"zones", "props", "chars", "labels"}, "set": set()},
+    "cierre": {"layers": {"logo", "chars"}, "set": set()},
+}
+DATOS_TRANSITIONS = {"cut", "none", "fade", "whip", "pan", "pan_up", "zoom_in"}
 TRANSITIONS = {"cut", "none", "fade", "wipe_up", "wipe_left", "slide_left", "zoom", "push_up", "flip", "glide", "zoom_blur"}
 
 
 def validate(sb):
     errs, warns = [], []
+    datos = (sb.get("meta") or {}).get("style") == "datos"
+    templates = DATOS_TEMPLATES if datos else TEMPLATES
+    transitions = DATOS_TRANSITIONS | TRANSITIONS if datos else TRANSITIONS
     if "chapters" not in sb or not sb["chapters"]:
         return ["falta 'chapters'"], warns
     total_words = 0
@@ -38,13 +58,13 @@ def validate(sb):
         for si, sc in enumerate(ch.get("scenes", []), 1):
             where = f"cap {ci} escena {si}"
             tp = sc.get("template")
-            if tp not in TEMPLATES:
-                errs.append(f"{where}: plantilla desconocida '{tp}'. Opciones: {', '.join(TEMPLATES)}")
+            if tp not in templates:
+                errs.append(f"{where}: plantilla desconocida '{tp}'. Opciones: {', '.join(templates)}")
                 continue
-            spec = TEMPLATES[tp]
+            spec = templates[tp]
             tr = (sc.get("transition") or {}).get("type")
-            if tr and tr not in TRANSITIONS:
-                errs.append(f"{where}: transición '{tr}' no existe ({', '.join(sorted(TRANSITIONS))})")
+            if tr and tr not in transitions:
+                errs.append(f"{where}: transición '{tr}' no existe ({', '.join(sorted(transitions))})")
             for l in sc.get("show", []):
                 if spec["layers"] and l not in spec["layers"]:
                     warns.append(f"{where}: capa '{l}' no la usa {tp}")
@@ -64,10 +84,10 @@ def validate(sb):
                 if n > 18:
                     warns.append(f"{w}: frase de {n} palabras; el estilo pide frases cortas (≤ 14)")
                 hl = b.get("headline")
-                if hl and len(str(hl).split("\n")[0]) > 26:
+                if hl and not datos and len(str(hl).split("\n")[0]) > 26:
                     warns.append(f"{w}: titular largo ({len(hl)} car.); ideal ≤ 22 por línea")
     secs = total_words / 2.5
-    if secs > 150:
+    if secs > (420 if datos else 150):
         warns.append(f"narración estimada {secs:.0f}s: demasiado larga (objetivo 60-95s)")
     if secs < 30:
         warns.append(f"narración estimada {secs:.0f}s: muy corta")

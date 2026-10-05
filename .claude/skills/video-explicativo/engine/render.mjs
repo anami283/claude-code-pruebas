@@ -17,7 +17,10 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((acc, a, i, arr) =>
 
 const timeline = JSON.parse(fs.readFileSync(args.timeline, 'utf8'));
 const fps = Number(args.fps || timeline.meta?.fps || 30);
-const W = 1080, H = 1350;
+// el estilo "datos" usa su propia página y lienzo 16:9; los demás, 1080×1350 (4:5)
+const DATOS = timeline.meta?.style === 'datos';
+const [W, H] = timeline.meta?.size || (DATOS ? [1920, 1080] : [1080, 1350]);
+const PAGE = path.join(here, DATOS ? 'datos/index.html' : 'index.html');
 
 function findChromium() {
   const cands = [process.env.CHROMIUM_PATH, '/opt/pw-browsers/chromium', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/usr/bin/google-chrome'];
@@ -40,7 +43,7 @@ function findChromium() {
 async function openPage(browser) {
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   await page.addInitScript(tl => { window.__TIMELINE__ = tl; }, timeline);
-  await page.goto('file://' + path.join(here, 'index.html'));
+  await page.goto('file://' + PAGE);
   await page.evaluate(() => window.__ready);
   await page.waitForTimeout(150);
   return page;
